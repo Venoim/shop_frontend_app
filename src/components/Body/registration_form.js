@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "bulma/css/bulma.min.css";
 
+const urlSerwer = "http://localhost:3001/api/users";
+
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -18,14 +20,31 @@ const RegistrationForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Dodaj logikę obsługi rejestracji tutaj
-    console.log("Dane formularza:", formData);
+    try {
+      const response = await fetch(urlSerwer, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        if (formData.password == formData.confirmPassword)
+          console.log("Użytkownik zarejestrowany pomyślnie");
+      } else {
+        // Obsluga bledow
+        console.error("Błąd podczas rejestracji");
+      }
+    } catch (error) {
+      console.error("Błąd połączenia z serwerem:", error);
+    }
   };
 
   const handleCancel = () => {
-    // Dodaj logikę anulowania tutaj
+    // Anulowanie Rejestracji
     console.log("Anulowano rejestrację");
   };
 
