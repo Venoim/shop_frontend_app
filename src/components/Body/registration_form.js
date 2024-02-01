@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "bulma/css/bulma.min.css";
+import "./registration_form.css";
 
 const urlSerwer = "http://localhost:3001/api/users";
 
