@@ -24,7 +24,35 @@ const RegistrationForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(urlSerwer, {
+      // Sprawdzenie, czy email istnieje już w bazie
+      const emailExistsResponse = await fetch(`${urlSerwer}/check-email`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: formData.email }),
+      });
+
+      if (emailExistsResponse.ok) {
+        const emailExistsResult = await emailExistsResponse.json();
+
+        if (emailExistsResult.exists) {
+          console.error("Podany email jest już używany.");
+          return; // Przerwij rejestrację, gdy email już istnieje
+        }
+      } else {
+        console.error("Błąd podczas sprawdzania emaila");
+        return;
+      }
+
+      // Sprawdzenie, czy hasła są takie same
+      if (formData.password !== formData.confirmPassword) {
+        console.error("Hasła muszą być takie same.");
+        return; // Przerwij rejestrację, gdy hasła są różne
+      }
+
+      // Wysłanie danych do bazy danych
+      const registerResponse = await fetch(urlSerwer, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,11 +60,9 @@ const RegistrationForm = () => {
         body: JSON.stringify(formData),
       });
 
-      if (response.ok) {
-        if (formData.password == formData.confirmPassword)
-          console.log("Użytkownik zarejestrowany pomyślnie");
+      if (registerResponse.ok) {
+        console.log("Użytkownik zarejestrowany pomyślnie");
       } else {
-        // Obsluga bledow
         console.error("Błąd podczas rejestracji");
       }
     } catch (error) {
