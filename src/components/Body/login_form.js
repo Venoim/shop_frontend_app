@@ -8,6 +8,9 @@ const LoginForm = () => {
     password: "",
   });
 
+  const [userData, setUserData] = useState(null);
+  const [error, setError] = useState(null);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginData({
@@ -29,13 +32,23 @@ const LoginForm = () => {
       });
 
       if (response.ok) {
-        // Dodaj logikę obsługi sukcesu
-        console.log("Zalogowano pomyślnie");
+        const userData = await response.json();
+        // Ustaw dane użytkownika w stanie komponentu
+        setUserData(userData);
+        setError(null);
+        console.log("Zalogowano pomyślnie", userData);
       } else {
-        // Dodaj logikę obsługi błędów
+        // Ustaw błąd w stanie komponentu
+        setError("Błędne dane logowania. Spróbuj ponownie.");
+        setUserData(null);
         console.error("Błąd podczas logowania");
       }
     } catch (error) {
+      // Ustaw błąd w stanie komponentu
+      setError(
+        "Wystąpił błąd połączenia z serwerem. Spróbuj ponownie później."
+      );
+      setUserData(null);
       console.error("Błąd połączenia z serwerem:", error);
     }
   };
@@ -74,10 +87,18 @@ const LoginForm = () => {
         <div className="field">
           <div className="control">
             <button type="submit" className="button is-primary">
-              Log in
+              Zaloguj
             </button>
           </div>
         </div>
+
+        {error && <div className="notification is-danger">{error}</div>}
+
+        {userData && (
+          <div className="notification is-success">
+            Zalogowano pomyślnie jako {userData.name} {userData.surname}.
+          </div>
+        )}
       </form>
     </div>
   );
