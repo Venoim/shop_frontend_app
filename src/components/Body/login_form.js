@@ -3,7 +3,7 @@ import "bulma/css/bulma.min.css";
 import "./login_form.css";
 import UserPage from "./UserPage";
 
-const LoginForm = () => {
+const LoginForm = ({ onLogin }) => {
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -53,6 +53,9 @@ const LoginForm = () => {
       console.error("Błąd połączenia z serwerem:", error);
     }
   };
+  const handleLogin = () => {
+    onLogin();
+  };
 
   return (
     <div className="container">
@@ -75,7 +78,7 @@ const LoginForm = () => {
           </div>
 
           <div className="field">
-            <label className="label">Hasło</label>
+            <label className="label">Password</label>
             <div className="control">
               <input
                 className="input"
@@ -90,8 +93,12 @@ const LoginForm = () => {
 
           <div className="field">
             <div className="control">
-              <button type="submit" className="button is-primary">
-                Zaloguj
+              <button
+                onClick={handleLogin}
+                type="submit"
+                className="button is-primary"
+              >
+                Log in
               </button>
             </div>
           </div>
