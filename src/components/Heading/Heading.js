@@ -1,4 +1,3 @@
-// Heading.js
 import React from "react";
 import "bulma/css/bulma.min.css";
 
@@ -10,14 +9,14 @@ const Heading = ({ isUserLoggedIn, onLogout }) => {
       aria-label="main navigation"
     >
       <div className="navbar-brand">
-        <a className="navbar-item" href="#">
+        <a className="navbar-item" href="/">
           Sklep React
         </a>
       </div>
 
       <div id="navbarBasicExample" className="navbar-menu">
         <div className="navbar-start">
-          <a href="#" className="navbar-item">
+          <a href="/products" className="navbar-item">
             Produkty
           </a>
           <a href="#" className="navbar-item">

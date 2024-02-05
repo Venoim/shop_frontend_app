@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Switch } from "react-router-dom";
+import Home from "./Body/Home.js";
 import Heading from "./Heading/Heading";
 import LoginForm from "./Body/login_form";
+import Dashboard from "./Body/Dashboard.js";
 import RegistrationForm from "./Body/registration_form";
+// import Sidebar from "./Body/Sidebar/Sidebar.js";
 import "./App.css";
 
 const App = () => {
@@ -21,10 +23,17 @@ const App = () => {
     <Router>
       <div>
         <Heading isUserLoggedIn={isUserLoggedIn} onLogout={handleLogout} />
-        <Routes>
-          <Route path="/login" element={<LoginForm onLogin={handleLogin} />} />
-          <Route path="/register" element={<RegistrationForm />} />
-        </Routes>
+        <div className="main-content">
+          <Routes>
+            <Route
+              path="/login"
+              element={<LoginForm onLogin={handleLogin} />}
+            />
+            <Route path="/register" element={<RegistrationForm />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/products" element={<Dashboard />} />
+          </Routes>
+        </div>
       </div>
     </Router>
   );
