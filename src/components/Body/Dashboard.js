@@ -12,39 +12,38 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchCategories();
-    fetchProducts();
-  }, [selectedCategory, selectedLimit, categories]);
+  }, []);
+
+  useEffect(() => {
+    if (selectedCategory !== null) {
+      fetchProducts();
+    }
+  }, [selectedCategory, selectedLimit, currentPage]);
 
   const fetchCategories = () => {
-    if (categories.length === 0) {
-      fetch("http://localhost:3001/api/categories")
-        .then((response) => response.json())
-        .then((data) => {
-          const allProductsCategory = { id: null, name: "Wszystkie produkty" };
-          setCategories([allProductsCategory, ...data]);
-        })
-        .catch((error) => console.error("Error fetching categories:", error));
-    }
+    fetch("http://localhost:3001/api/categories")
+      .then((response) => response.json())
+      .then((data) => {
+        const allProductsCategory = { id: null, name: "Wszystkie produkty" };
+        setCategories([allProductsCategory, ...data]);
+      })
+      .catch((error) => console.error("Error fetching categories:", error));
   };
 
-  const fetchProducts = (page = 1) => {
-    let url = "http://localhost:3001/api/products";
+  const fetchProducts = () => {
+    let url = `http://localhost:3001/api/products`;
 
     if (selectedCategory) {
       url += `/category/${selectedCategory}`;
     }
 
-    if (selectedLimit) {
-      url += `?limit=${selectedLimit}&page=${page}`;
-    } else {
-      url += `?page=${page}`;
-    }
+    url += `?limit=${selectedLimit}&page=${currentPage}`;
 
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        setProducts(data);
-        setProductsCount(data.count);
+        setProducts(data.data);
+        setProductsCount(data.totalProducts);
       })
       .catch((error) => console.error("Error fetching products:", error));
   };
@@ -54,7 +53,7 @@ const Dashboard = () => {
 
   const handleLimitSelect = (limit) => {
     setSelectedLimit(limit);
-    setCurrentPage(1); // Przy zmianie limitu ustaw currentPage na 1
+    setCurrentPage(1);
   };
 
   const handlePageChange = (page) => {
@@ -95,7 +94,7 @@ const Dashboard = () => {
           </div>
           <Pagination
             currentPage={currentPage}
-            totalPages={Math.ceil(productsCount / selectedLimit)}
+            totalPages={Math.ceil(productsCount / parseInt(selectedLimit))}
             onPageChange={handlePageChange}
           />
         </div>

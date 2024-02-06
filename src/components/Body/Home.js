@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 
 const Home = () => {
-  const [data, setData] = useState([]);
+  const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
-
+  console.log("tablica:", typeof produkts);
   useEffect(() => {
     const fetchProdukts = async () => {
       try {
@@ -16,8 +16,8 @@ const Home = () => {
           throw new Error("Błąd podczas pobierania danych");
         }
 
-        const produkts = await response.json();
-        setData(produkts);
+        const data = await response.json(); // Poprawione: zamiast produkts, używamy data
+        setProducts(data.data); // Poprawione: zamiast produkts, używamy data.data
         setError(null);
       } catch (error) {
         console.error("Błąd podczas pobierania danych:", error.message);
@@ -32,7 +32,7 @@ const Home = () => {
     <div>
       <h1 className="title is-1">Strona główna</h1>
       <div className="tile is-ancestor">
-        {data.map((product) => (
+        {products.map((product) => (
           <div key={product.id} className="tile is-parent">
             <article className="tile is-child box">
               <p className="title is-4">{product.name}</p>
