@@ -11,7 +11,7 @@ const Sidebar = ({ categories, onSelectCategory, onSelectLimit }) => {
 
       <ul className="menu-list">
         <li onClick={() => onSelectCategory(null)}>
-          {/* <a className="has-text-weight-semibold">Wszystkie produkty</a> */}
+          <a className="has-text-weight-semibold">Wszystkie produkty</a>
         </li>
         {categories &&
           categories.map((category) => (

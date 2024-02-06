@@ -11,13 +11,9 @@ const Dashboard = () => {
   const [productsCount, setProductsCount] = useState(0);
 
   useEffect(() => {
+    console.log("Selected category in useEffect:", selectedCategory);
     fetchCategories();
-  }, []);
-
-  useEffect(() => {
-    if (selectedCategory !== null) {
-      fetchProducts();
-    }
+    fetchProducts();
   }, [selectedCategory, selectedLimit, currentPage]);
 
   const fetchCategories = () => {
@@ -32,12 +28,15 @@ const Dashboard = () => {
 
   const fetchProducts = () => {
     let url = `http://localhost:3001/api/products`;
-
+    console.log("kategoria:", selectedCategory);
+    // Wybieramy odpowiedni endpoint w zależności od tego, czy wybrano kategorię
     if (selectedCategory) {
       url += `/category/${selectedCategory}`;
     }
 
-    url += `?limit=${selectedLimit}&page=${currentPage}`;
+    if (selectedLimit) {
+      url += `?limit=${selectedLimit}&page=${currentPage}`;
+    }
 
     fetch(url)
       .then((response) => response.json())
@@ -47,7 +46,9 @@ const Dashboard = () => {
       })
       .catch((error) => console.error("Error fetching products:", error));
   };
+
   const handleCategorySelect = (categoryId) => {
+    console.log("Selected category:", categoryId);
     setSelectedCategory(categoryId);
   };
 
