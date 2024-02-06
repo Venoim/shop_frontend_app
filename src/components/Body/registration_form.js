@@ -13,6 +13,8 @@ const RegistrationForm = () => {
     confirmPassword: "",
   });
 
+  const [registrationSuccess, setRegistrationSuccess] = useState(false); // Dodany stan
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -62,6 +64,7 @@ const RegistrationForm = () => {
 
       if (registerResponse.ok) {
         console.log("Użytkownik zarejestrowany pomyślnie");
+        setRegistrationSuccess(true); // Ustawienie stanu na sukces po pomyślnej rejestracji
       } else {
         console.error("Błąd podczas rejestracji");
       }
@@ -77,6 +80,11 @@ const RegistrationForm = () => {
 
   return (
     <div className="container">
+      {registrationSuccess && ( // Wyświetlanie komunikatu po udanej rejestracji
+        <div className="notification is-success">
+          Użytkownik został zarejestrowany pomyślnie.
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
         <div className="field">
           <label className="label">Name</label>

@@ -50,6 +50,7 @@ const Dashboard = () => {
   const handleCategorySelect = (categoryId) => {
     console.log("Selected category:", categoryId);
     setSelectedCategory(categoryId);
+    setCurrentPage(1);
   };
 
   const handleLimitSelect = (limit) => {
