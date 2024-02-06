@@ -10,9 +10,9 @@ const Sidebar = ({ categories, onSelectCategory, onSelectLimit }) => {
       <hr className="sidebar-divider" />
 
       <ul className="menu-list">
-        <li onClick={() => onSelectCategory(null)}>
+        {/* <li onClick={() => onSelectCategory(null)}>
           <a className="has-text-weight-semibold">Wszystkie produkty</a>
-        </li>
+        </li> */}
         {categories &&
           categories.map((category) => (
             <li key={category.id} onClick={() => onSelectCategory(category.id)}>
