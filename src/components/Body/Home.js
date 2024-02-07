@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-const Home = () => {
+const Home = ({ history }) => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
+  const navigate = useNavigate(); // Pobieranie parametru productId z adresu URL
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -28,6 +30,10 @@ const Home = () => {
     fetchProducts();
   }, []);
 
+  const handleProductClick = (productId) => {
+    navigate(`/product/${productId}`);
+  };
+
   // Ograniczenie ilości wyświetlanych produktów
   const limitedProducts = products.slice(0, 10);
 
@@ -48,14 +54,21 @@ const Home = () => {
           <h2 className="subtitle">{category}</h2>
           <div className="tile is-ancestor">
             {groupedProducts[category].map((product) => (
-              <div key={product.id} className="tile is-parent">
-                <article className="tile is-child box">
-                  <p className="title is-4">{product.name}</p>
-                  <p className="subtitle is-6">{product.description}</p>
-                  <p className="has-text-weight-bold">
-                    Cena: {product.price} zł
-                  </p>
-                </article>
+              <div
+                key={product.id}
+                className="tile is-parent"
+                onClick={() => handleProductClick(product.id)} // Przekazanie ID produktu do funkcji obsługującej kliknięcie
+                style={{ cursor: "pointer" }}
+              >
+                <div className="tile is-child box">
+                  <article>
+                    <p className="title is-4">{product.name}</p>
+                    <p className="subtitle is-6">{product.description}</p>
+                    <p className="has-text-weight-bold">
+                      Cena: {product.price} zł
+                    </p>
+                  </article>
+                </div>
               </div>
             ))}
           </div>

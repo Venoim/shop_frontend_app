@@ -1,5 +1,3 @@
-/* styles.scss */
-
 .sidebar {
   background-color: #f4f4f4; /* Zmiana koloru tła Sidebaru */
   padding: 20px;
@@ -9,4 +7,13 @@
   border-top: 1px solid #ddd; /* Dodanie cienkiej linii oddzielającej */
   border-right: 1px solid #ddd;
   margin: 10px 0; /* Dodanie odstępu dla estetyki */
+}
+
+.menu-list li.selected {
+  background-color: #ddd; /* Kolor podświetlenia dla elementu listy */
+}
+
+.menu-list li a.selected-link {
+  color: rgb(0, 0, 0); /* Kolor linku po wybraniu kategorii */
+  font-weight: bold; /* Pogrubienie tekstu linku po wybraniu kategorii */
 }

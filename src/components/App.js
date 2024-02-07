@@ -5,6 +5,7 @@ import Heading from "./Heading/Heading";
 import LoginForm from "./Body/login_form";
 import Dashboard from "./Body/Dashboard.js";
 import RegistrationForm from "./Body/registration_form";
+import ProductPage from "./Body/ProductPage";
 // import Sidebar from "./Body/Sidebar/Sidebar.js";
 import "./App.css";
 
@@ -32,6 +33,7 @@ const App = () => {
             <Route path="/register" element={<RegistrationForm />} />
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<Dashboard />} />
+            <Route path="/product/:id" element={<ProductPage />} />
           </Routes>
         </div>
       </div>
