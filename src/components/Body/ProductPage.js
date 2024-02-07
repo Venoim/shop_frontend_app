@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
-const ProductPage = () => {
+const ProductPage = ({ userData }) => {
   const [product, setProduct] = useState(null);
   const [error, setError] = useState(null);
   const { id } = useParams(); // Pobieranie parametru id z adresu URL
-
+  // console.log("dane uzytkownika:", userData[0].id);
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -41,8 +42,19 @@ const ProductPage = () => {
     fetchProduct();
   }, [id]);
 
-  const handleAddToCart = () => {
-    // Logika dodawania do koszyka
+  const handleAddToCart = async () => {
+    try {
+      // Wywołaj odpowiednie zapytanie HTTP, aby dodać produkt do koszyka
+      await axios.post("http://localhost:3001/api/basket/add", {
+        userId: userData[0].id, // Tutaj możesz przekazać ID aktualnego użytkownika
+        productId: product.id, // ID produktu, który dodajesz do koszyka
+        quantity: 1, // Tutaj możesz przekazać wybraną ilość produktu
+      });
+      alert("Produkt dodany do koszyka!");
+    } catch (error) {
+      console.error("Error adding product to cart:", error);
+      alert("Wystąpił błąd podczas dodawania produktu do koszyka.");
+    }
   };
 
   if (!product) {

@@ -19,7 +19,7 @@ const Heading = ({ isUserLoggedIn, onLogout }) => {
           <a href="/products" className="navbar-item">
             Produkty
           </a>
-          <a href="#" className="navbar-item">
+          <a href="/basket" className="navbar-item">
             Koszyk
           </a>
         </div>
