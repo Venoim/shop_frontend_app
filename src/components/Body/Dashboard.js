@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar/Sidebar.js";
 import Pagination from "./Pagination.js";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const [categories, setCategories] = useState([]);
@@ -9,6 +10,7 @@ const Dashboard = () => {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsCount, setProductsCount] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log("Selected category in useEffect:", selectedCategory);
@@ -62,6 +64,10 @@ const Dashboard = () => {
     setCurrentPage(page);
   };
 
+  const handleProductClick = (productId) => {
+    navigate(`/product/${productId}`);
+  };
+
   return (
     <div className="dashboard">
       <div className="columns">
@@ -79,17 +85,26 @@ const Dashboard = () => {
               products.map((product) => (
                 <div key={product.id} className="column is-one-third">
                   <div className="box">
-                    <article className="media">
-                      <div className="media-content">
-                        <div className="content">
-                          <p className="title is-4">{product.name}</p>
-                          <p className="subtitle is-6">{product.description}</p>
-                          <p className="has-text-weight-bold">
-                            Cena: {product.price} zł
-                          </p>
+                    <div
+                      key={product.id}
+                      className="tile is-parent"
+                      onClick={() => handleProductClick(product.id)} // Przekazanie ID produktu do funkcji obsługującej kliknięcie
+                      style={{ cursor: "pointer" }}
+                    >
+                      <article className="media">
+                        <div className="media-content">
+                          <div className="content">
+                            <p className="title is-4">{product.name}</p>
+                            <p className="subtitle is-6">
+                              {product.description}
+                            </p>
+                            <p className="has-text-weight-bold">
+                              Cena: {product.price} zł
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    </article>
+                      </article>
+                    </div>
                   </div>
                 </div>
               ))}
