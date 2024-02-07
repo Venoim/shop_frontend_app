@@ -1,16 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "bulma/css/bulma.min.css";
 import "./login_form.css";
 import UserPage from "./UserPage";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = ({ onLogin }) => {
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
-
+  const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
+
+  // useEffect(() => {
+  //   // Sprawdź, czy istnieją zapisane dane zalogowanego użytkownika w localStorage
+  //   const storedUserData = localStorage.getItem("userData");
+  //   if (storedUserData) {
+  //     setUserData(JSON.parse(storedUserData));
+  //   }
+  // }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,8 +43,12 @@ const LoginForm = ({ onLogin }) => {
 
       if (response.ok) {
         const userData = await response.json();
-        // Ustaw dane użytkownika w stanie komponentu
-        setUserData(userData);
+        // Zapisz dane użytkownika do localStorage
+        localStorage.setItem("userData", JSON.stringify(userData));
+
+        navigate(`/userPage`);
+        // Ustaw stan zalogowania w komponencie App
+        onLogin(userData);
         setError(null);
         console.log("Zalogowano pomyślnie", userData);
       } else {

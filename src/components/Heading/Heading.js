@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "bulma/css/bulma.min.css";
 
 const Heading = ({ isUserLoggedIn, onLogout }) => {
@@ -38,10 +38,12 @@ const Heading = ({ isUserLoggedIn, onLogout }) => {
             </div>
           ) : (
             <div className="navbar-item has-dropdown is-hoverable">
-              <a className="navbar-link">Twoje konto</a>
+              <a className="navbar-link" href="/userPage">
+                Twoje konto
+              </a>
 
               <div className="navbar-dropdown">
-                <a className="navbar-item" href="#">
+                <a className="navbar-item" href="/userPage">
                   Profil
                 </a>
                 <a className="navbar-item" href="#">
