@@ -5,15 +5,15 @@ const UserPage = ({ userData, onLogout }) => {
     return <div>Nie jesteś zalogowany</div>;
   }
 
-  const { name, surname, email } = userData;
+  const { name, surname, email, id } = userData[0];
 
   return (
     <div className="container">
+      <p>ID:{id}</p>
       <h1>
         Witaj, {name} {surname}!
       </h1>
       <p>Twój adres email: {email}</p>
-      <button onClick={onLogout}>Wyloguj</button>
     </div>
   );
 };

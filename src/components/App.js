@@ -48,7 +48,7 @@ const App = () => {
             <Route path="/register" element={<RegistrationForm />} />
             <Route
               path="/userPage"
-              element={<UserPage userData={userData} />}
+              element={<UserPage userData={userData} onLogout={handleLogout} />}
             />
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<Dashboard />} />
