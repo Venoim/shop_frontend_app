@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./BasketStyle.scss";
 
 const Basket = ({ userData }) => {
   const [basketItems, setBasketItems] = useState([]);
@@ -24,10 +25,12 @@ const Basket = ({ userData }) => {
 
   const handleQuantityChange = async (itemId, newQuantity) => {
     try {
-      await axios.put(`/cart/update/${itemId}`, { quantity: newQuantity });
+      await axios.put(`http://localhost:3001/api/basket/update/${itemId}`, {
+        quantity: newQuantity,
+      });
       // Zaktualizuj stan koszyka po zmianie ilości
       const updatedBasketItems = basketItems.map((item) => {
-        if (item.basket_id === itemId) {
+        if (item.id === itemId) {
           return { ...item, quantity: newQuantity };
         }
         return item;
@@ -40,7 +43,7 @@ const Basket = ({ userData }) => {
 
   const handleRemoveItem = async (itemId) => {
     try {
-      await axios.delete(`/cart/remove/${itemId}`);
+      await axios.delete(`http://localhost:3001/api/basket/remove/${itemId}`);
       // Usuń produkt z koszyka na podstawie jego ID
       const updatedBasketItems = basketItems.filter(
         (item) => item.cart_id !== itemId
@@ -50,6 +53,10 @@ const Basket = ({ userData }) => {
       console.error("Error removing item:", error);
     }
   };
+
+  const totalCost = basketItems.reduce((total, item) => {
+    return total + item.price * item.quantity;
+  }, 0);
 
   return (
     <div className="section">
@@ -69,14 +76,14 @@ const Basket = ({ userData }) => {
             </thead>
             <tbody>
               {basketItems.map((item) => (
-                <tr key={item.cart_id}>
+                <tr key={item.id}>
                   <td>{item.name}</td>
                   <td>{item.price}</td>
-                  <td>
+                  <td className="quantity">
                     <button
                       className="button is-small"
                       onClick={() =>
-                        handleQuantityChange(item.cart_id, item.quantity - 1)
+                        handleQuantityChange(item.id, item.quantity - 1)
                       }
                       disabled={item.quantity <= 1}
                     >
@@ -87,17 +94,14 @@ const Basket = ({ userData }) => {
                       className="input is-small"
                       value={item.quantity}
                       onChange={(e) =>
-                        handleQuantityChange(
-                          item.cart_id,
-                          parseInt(e.target.value)
-                        )
+                        handleQuantityChange(item.id, parseInt(e.target.value))
                       }
                       min="1"
                     />
                     <button
                       className="button is-small"
                       onClick={() =>
-                        handleQuantityChange(item.cart_id, item.quantity + 1)
+                        handleQuantityChange(item.id, item.quantity + 1)
                       }
                     >
                       +
@@ -106,7 +110,7 @@ const Basket = ({ userData }) => {
                   <td>
                     <button
                       className="button is-danger is-small"
-                      onClick={() => handleRemoveItem(item.cart_id)}
+                      onClick={() => handleRemoveItem(item.id)}
                     >
                       Usuń
                     </button>
@@ -114,6 +118,12 @@ const Basket = ({ userData }) => {
                 </tr>
               ))}
             </tbody>
+            <tfoot className="total-cost">
+              <tr>
+                <td>Suma:</td>
+                <td> {totalCost.toFixed(2)} zł</td>
+              </tr>
+            </tfoot>
           </table>
         )}
       </div>
