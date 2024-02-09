@@ -49,8 +49,19 @@ const Basket = ({ userData }) => {
         (item) => item.cart_id !== itemId
       );
       setBasketItems(updatedBasketItems);
+      fetchBasketItems();
     } catch (error) {
       console.error("Error removing item:", error);
+    }
+  };
+  const fetchBasketItems = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/api/basket/${userId}`
+      );
+      setBasketItems(response.data);
+    } catch (error) {
+      console.error("Error fetching basket items:", error);
     }
   };
 
@@ -80,7 +91,7 @@ const Basket = ({ userData }) => {
                   <td>{item.name}</td>
                   <td>{item.price}</td>
                   <td className="quantity">
-                    <button
+                    {/* <button
                       className="button is-small"
                       onClick={() =>
                         handleQuantityChange(item.id, item.quantity - 1)
@@ -88,7 +99,7 @@ const Basket = ({ userData }) => {
                       disabled={item.quantity <= 1}
                     >
                       -
-                    </button>
+                    </button> */}
                     <input
                       type="number"
                       className="input is-small quantity"
@@ -98,14 +109,14 @@ const Basket = ({ userData }) => {
                       }
                       min="1"
                     />
-                    <button
+                    {/* <button
                       className="button is-small"
                       onClick={() =>
                         handleQuantityChange(item.id, item.quantity + 1)
                       }
                     >
                       +
-                    </button>
+                    </button> */}
                   </td>
                   <td>
                     <button
@@ -122,6 +133,10 @@ const Basket = ({ userData }) => {
               <tr>
                 <td>Suma:</td>
                 <td> {totalCost.toFixed(2)} zł</td>
+                <td></td>
+                <td>
+                  <button className="button is-small">Kup</button>
+                </td>
               </tr>
             </tfoot>
           </table>
