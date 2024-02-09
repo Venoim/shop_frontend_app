@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "bulma/css/bulma.min.css";
 import "./registration_form.css";
 
-const urlSerwer = "http://localhost:3001/api/users";
+const urlSerwer = "http://localhost:3001/api/users/register";
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -13,7 +13,7 @@ const RegistrationForm = () => {
     confirmPassword: "",
   });
 
-  const [registrationSuccess, setRegistrationSuccess] = useState(false); // Dodany stan
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,13 +27,16 @@ const RegistrationForm = () => {
     e.preventDefault();
     try {
       // Sprawdzenie, czy email istnieje już w bazie
-      const emailExistsResponse = await fetch(`${urlSerwer}/check-email`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: formData.email }),
-      });
+      const emailExistsResponse = await fetch(
+        `http://localhost:3001/api/users/check-email`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: formData.email }),
+        }
+      );
 
       if (emailExistsResponse.ok) {
         const emailExistsResult = await emailExistsResponse.json();

@@ -91,7 +91,7 @@ const Basket = ({ userData }) => {
                     </button>
                     <input
                       type="number"
-                      className="input is-small"
+                      className="input is-small quantity"
                       value={item.quantity}
                       onChange={(e) =>
                         handleQuantityChange(item.id, parseInt(e.target.value))
