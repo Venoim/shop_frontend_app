@@ -46,7 +46,7 @@ const ProductPage = ({ userData }) => {
     try {
       // Wywołaj odpowiednie zapytanie HTTP, aby dodać produkt do koszyka
       await axios.post("http://localhost:3001/api/basket/add", {
-        userId: userData[0].id, // Tutaj możesz przekazać ID aktualnego użytkownika
+        userId: userData.user[0].id, // Tutaj możesz przekazać ID aktualnego użytkownika
         productId: product.id, // ID produktu, który dodajesz do koszyka
         quantity: 1, // Tutaj możesz przekazać wybraną ilość produktu
       });

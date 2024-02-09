@@ -5,6 +5,7 @@ import Heading from "./Heading/Heading";
 import LoginForm from "./Body/login_form";
 import Dashboard from "./Body/Dashboard.js";
 import RegistrationForm from "./Body/registration_form";
+import EmailVerificationForm from "./Body/email_verification_form.js";
 import ProductPage from "./Body/ProductPage";
 import Basket from "./Body/Basket.js";
 import UserPage from "./Body/UserPage"; // Dodajemy import komponentu UserPage
@@ -46,6 +47,7 @@ const App = () => {
               path="/login"
               element={<LoginForm onLogin={handleLogin} />}
             />
+            <Route path="/confirm-email" element={<EmailVerificationForm />} />
             <Route path="/register" element={<RegistrationForm />} />
             <Route
               path="/userPage"

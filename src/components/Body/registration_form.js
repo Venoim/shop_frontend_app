@@ -86,6 +86,7 @@ const RegistrationForm = () => {
       {registrationSuccess && ( // Wyświetlanie komunikatu po udanej rejestracji
         <div className="notification is-success">
           Użytkownik został zarejestrowany pomyślnie.
+          <a href="/confirm-email"> Przejdz weryfikacji emila</a>
         </div>
       )}
       <form onSubmit={handleSubmit}>

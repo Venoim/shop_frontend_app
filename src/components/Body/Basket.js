@@ -5,8 +5,8 @@ import "./BasketStyle.scss";
 const Basket = ({ userData }) => {
   const [basketItems, setBasketItems] = useState([]);
 
-  const userId = userData?.[0]?.id;
-
+  const userId = userData?.user[0]?.id;
+  console.log(userId);
   useEffect(() => {
     // Pobierz zawartość koszyka dla danego użytkownika po załadowaniu komponentu
     const fetchBasketItems = async () => {
