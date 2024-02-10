@@ -8,7 +8,7 @@ import RegistrationForm from "./Body/registration_form";
 import EmailVerificationForm from "./Body/email_verification_form.js";
 import ProductPage from "./Body/ProductPage";
 import Basket from "./Body/Basket.js";
-import UserPage from "./Body/UserPage"; // Dodajemy import komponentu UserPage
+import UserPage from "./Body/UserPage";
 import "./App.css";
 
 const App = () => {
@@ -50,7 +50,7 @@ const App = () => {
             <Route path="/confirm-email" element={<EmailVerificationForm />} />
             <Route path="/register" element={<RegistrationForm />} />
             <Route
-              path="/userPage"
+              path="/user/*"
               element={<UserPage userData={userData} onLogout={handleLogout} />}
             />
             <Route path="/" element={<Home />} />

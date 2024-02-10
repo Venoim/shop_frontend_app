@@ -44,11 +44,10 @@ const ProductPage = ({ userData }) => {
 
   const handleAddToCart = async () => {
     try {
-      // Wywołaj odpowiednie zapytanie HTTP, aby dodać produkt do koszyka
       await axios.post("http://localhost:3001/api/basket/add", {
-        userId: userData.user[0].id, // Tutaj możesz przekazać ID aktualnego użytkownika
-        productId: product.id, // ID produktu, który dodajesz do koszyka
-        quantity: 1, // Tutaj możesz przekazać wybraną ilość produktu
+        userId: userData.user[0].id, // ID aktualnego użytkownika
+        productId: product.id, // ID produktu
+        quantity: 1, //  ilość produktu
       });
       alert("Produkt dodany do koszyka!");
     } catch (error) {

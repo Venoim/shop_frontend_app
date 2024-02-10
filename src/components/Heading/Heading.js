@@ -38,12 +38,12 @@ const Heading = ({ isUserLoggedIn, onLogout }) => {
             </div>
           ) : (
             <div className="navbar-item has-dropdown is-hoverable">
-              <a className="navbar-link" href="/userPage">
+              <a className="navbar-link" href="/user">
                 Twoje konto
               </a>
 
               <div className="navbar-dropdown">
-                <a className="navbar-item" href="/userPage">
+                <a className="navbar-item" href="/user">
                   Profil
                 </a>
                 <a className="navbar-item" href="#">

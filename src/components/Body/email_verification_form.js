@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const EmailVerificationForm = () => {
   const [email, setEmail] = useState("");
   const [confirmationCode, setConfirmationCode] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,7 +16,7 @@ const EmailVerificationForm = () => {
         { email, confirmationCode }
       );
       console.log(response.data); // Zalogowanie odpowiedzi z serwera po potwierdzeniu e-maila
-      // Tutaj możesz przekierować użytkownika na inną stronę lub wyświetlić komunikat o sukcesie
+      navigate(`/login`);
     } catch (error) {
       console.error("Błąd podczas potwierdzania adresu e-mail:", error);
       setErrorMessage("Błąd podczas potwierdzania adresu e-mail");
