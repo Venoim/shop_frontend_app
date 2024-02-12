@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
 const EmailVerificationForm = () => {
@@ -16,15 +18,18 @@ const EmailVerificationForm = () => {
         { email, confirmationCode }
       );
       console.log(response.data); // Zalogowanie odpowiedzi z serwera po potwierdzeniu e-maila
+      toast.success("Potwierdzanie adresu e-mail zakończone sukcesem");
       navigate(`/login`);
     } catch (error) {
-      console.error("Błąd podczas potwierdzania adresu e-mail:", error);
-      setErrorMessage("Błąd podczas potwierdzania adresu e-mail");
+      // console.error("Błąd podczas potwierdzania adresu e-mail:", error);
+      // setErrorMessage("Błąd podczas potwierdzania adresu e-mail");
+      toast.error("Błąd podczas potwierdzania adresu e-mail");
     }
   };
 
   return (
     <div className="container">
+      <ToastContainer />
       <form onSubmit={handleSubmit}>
         <div className="field">
           <label className="label">Adres e-mail</label>
@@ -50,7 +55,7 @@ const EmailVerificationForm = () => {
             />
           </div>
         </div>
-        {errorMessage && <p className="has-text-danger">{errorMessage}</p>}
+        {/* {errorMessage && <p className="has-text-danger">{errorMessage}</p>} */}
         <div className="field">
           <div className="control">
             <button className="button is-primary" type="submit">
