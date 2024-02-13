@@ -10,6 +10,7 @@ import ProductPage from "./Body/ProductPage";
 import Basket from "./Body/Basket.js";
 import UserPage from "./Body/UserPage";
 import "./App.css";
+import Footer from "./Footer/Footer.js";
 
 const App = () => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
@@ -62,6 +63,7 @@ const App = () => {
             <Route path="/basket" element={<Basket userData={userData} />} />
           </Routes>
         </div>
+        {/* <Footer /> */}
       </div>
     </Router>
   );
