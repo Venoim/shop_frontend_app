@@ -8,8 +8,8 @@ const urlSerwer = "http://localhost:3001/api/users/register";
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
-    name: "",
-    surname: "",
+    // name: "",
+    // surname: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -75,8 +75,8 @@ const RegistrationForm = () => {
         setRegistrationSuccess(true); // Ustawienie stanu na sukces po pomyślnej rejestracji
         toast.success("Użytkownik zarejestrowany pomyślnie");
         setFormData({
-          name: "",
-          surname: "",
+          // name: "",
+          // surname: "",
           email: "",
           password: "",
           confirmPassword: "",
@@ -91,7 +91,7 @@ const RegistrationForm = () => {
           toast.error(
             "Hasło musi zawierać co najmniej jedną dużą literę, jedną małą literę, jedną cyfrę i jeden znak specjalny."
           );
-          return; // Przerwij rejestrację, gdy hasło nie spełnia wymogów
+          return;
         }
       }
     } catch (error) {
@@ -115,7 +115,7 @@ const RegistrationForm = () => {
         </div>
       )} */}
       <form onSubmit={handleSubmit}>
-        <div className="field">
+        {/* <div className="field">
           <label className="label">Name</label>
           <div className="control">
             <input
@@ -141,7 +141,7 @@ const RegistrationForm = () => {
               required
             />
           </div>
-        </div>
+        </div> */}
 
         <div className="field">
           <label className="label">Email</label>

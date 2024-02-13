@@ -40,7 +40,7 @@ const LoginForm = ({ onLogin }) => {
         // Zapisz dane użytkownika do localStorage
         localStorage.setItem("userData", JSON.stringify(userData));
         //przekerowanie po pomyslnym logowaniu na strone uzytkownika
-        navigate(`/userPage`);
+        navigate(`/`);
         // Ustaw stan zalogowania w komponencie App
         onLogin(userData);
         setError(null);
