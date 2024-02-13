@@ -50,7 +50,7 @@ const ProductPage = ({ userData }) => {
   const handleAddToCart = async () => {
     try {
       await axios.post("http://localhost:3001/api/basket/add", {
-        userId: userData.user[0].id, // ID aktualnego użytkownika
+        userId: userData.userData.id, // ID aktualnego użytkownika
         productId: product.id, // ID produktu
         quantity: 1, //  ilość produktu
       });
@@ -58,7 +58,7 @@ const ProductPage = ({ userData }) => {
       toast.success("Produkt dodany do koszyka!");
     } catch (error) {
       console.error("Error adding product to cart:", error);
-      alert("Wystąpił błąd podczas dodawania produktu do koszyka.");
+      // alert("Wystąpił błąd podczas dodawania produktu do koszyka.");
       toast.error("Wystąpił błąd podczas dodawania produktu do koszyka.");
     }
   };

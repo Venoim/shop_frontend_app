@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 const Basket = ({ userData }) => {
   const [basketItems, setBasketItems] = useState([]);
 
-  const userId = userData?.user[0]?.id;
+  const userId = userData?.userData?.id;
   console.log(userId);
   useEffect(() => {
     // Pobierz zawartość koszyka dla danego użytkownika po załadowaniu komponentu
@@ -19,7 +19,7 @@ const Basket = ({ userData }) => {
         setBasketItems(response.data);
       } catch (error) {
         console.error("Error fetching basket items:", error);
-        toast.error("Error fetching basket items:", error);
+        // toast.error("Error fetching basket items:", error);
       }
     };
 

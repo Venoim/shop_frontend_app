@@ -10,7 +10,7 @@ const UserPage = ({ userData, onLogout }) => {
     return <div>Nie jesteś zalogowany</div>;
   }
 
-  const { name, surname, email, id } = userData.user[0];
+  const { name, surname, email, id } = userData.userData;
 
   return (
     <div className="columns">
