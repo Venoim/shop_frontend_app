@@ -52,10 +52,10 @@ const Heading = ({ isUserLoggedIn, onLogout }) => {
                 <a className="navbar-item" href="/user">
                   Profil
                 </a>
-                <a className="navbar-item" href="/orders">
+                <a className="navbar-item" href="/user/orders">
                   Zamowienia
                 </a>
-                <a className="navbar-item" href="#">
+                <a className="navbar-item" href="/user/set">
                   Ustawienia
                 </a>
                 <hr className="navbar-divider" />

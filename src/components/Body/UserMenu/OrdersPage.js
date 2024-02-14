@@ -1,11 +1,12 @@
+// OrdersPage.js
 import React from "react";
 
 const OrdersPage = () => {
   // Tutaj pobierz listę zamówień użytkownika, np. z serwera
 
   return (
-    <div>
-      <h2>Twoje zamówienia</h2>
+    <div className="box">
+      <h2 className="title is-4">Twoje zamówienia</h2>
       {/* Wyświetl listę zamówień */}
       <ul>
         <li>Zamówienie 1 - Szczegóły zamówienia</li>
