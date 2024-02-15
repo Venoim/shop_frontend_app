@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 const DataPage = ({ currentUserData, onSave }) => {
-  // Załóżmy, że masz stan dla danych użytkownika
   const user = currentUserData.userData;
   console.log(user);
   const [userData, setUserData] = useState({

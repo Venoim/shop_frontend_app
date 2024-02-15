@@ -74,11 +74,15 @@ const ProductPage = ({ userData }) => {
         <div className="column is-half">
           <p>ID: {product.id}</p>
           <h1 className="title">{product.name}</h1>
-          <p>Opis: {product.description}</p>
-          <p>Cena: {product.price} zł</p>
-          <button className="button is-primary" onClick={handleAddToCart}>
-            Dodaj do koszyka
-          </button>
+          <div className="box">
+            <p>Opis: {product.description}</p>
+          </div>
+          <div>
+            <p className="prince">Cena: {product.price} zł</p>
+            <button className="button is-primary" onClick={handleAddToCart}>
+              Dodaj do koszyka
+            </button>
+          </div>
         </div>
         {/* Wyświetl obrazek tylko jeśli jest dostępny */}
         {product.imgUrl && (
