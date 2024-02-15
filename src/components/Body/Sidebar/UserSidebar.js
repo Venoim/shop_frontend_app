@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "bulma/css/bulma.min.css";
-import "./SidebarStyle.scss";
+import "./UserSidebarSytle.scss";
 
 const UserSidebar = ({ onLogout }) => {
   return (
     <aside className="menu">
       <p className="menu-label">Twoje konto</p>
       <ul className="menu-list">
-        <li>
-          <Link to="/user/zamowienia">Twoje zamówienia</Link>
+        <li className="selected">
+          <Link to="/user/orders">Twoje zamówienia</Link>
         </li>
-        <li>
-          <Link to="/user/dane">Twoje dane</Link>
+        <li className="selected">
+          <Link to="/user/data">Twoje dane</Link>
         </li>
-        <li>
-          <Link to="/user/ustawienia">Ustawienia konta</Link>
+        <li className="selected">
+          <Link to="/user/set">Ustawienia konta</Link>
         </li>
       </ul>
       <p className="menu-label">Operacje</p>

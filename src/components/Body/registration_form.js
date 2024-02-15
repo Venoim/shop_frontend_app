@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "bulma/css/bulma.min.css";
 import "./registration_form.css";
 
@@ -6,8 +8,8 @@ const urlSerwer = "http://localhost:3001/api/users/register";
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
-    name: "",
-    surname: "",
+    // name: "",
+    // surname: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -43,16 +45,19 @@ const RegistrationForm = () => {
 
         if (emailExistsResult.exists) {
           console.error("Podany email jest już używany.");
+          toast.error("Podany email jest już używany.");
           return; // Przerwij rejestrację, gdy email już istnieje
         }
       } else {
         console.error("Błąd podczas sprawdzania emaila");
+        toast.error("Błąd podczas sprawdzania emaila");
         return;
       }
 
       // Sprawdzenie, czy hasła są takie same
       if (formData.password !== formData.confirmPassword) {
         console.error("Hasła muszą być takie same.");
+        toast.error("Hasła muszą być takie same.");
         return; // Przerwij rejestrację, gdy hasła są różne
       }
 
@@ -68,11 +73,30 @@ const RegistrationForm = () => {
       if (registerResponse.ok) {
         console.log("Użytkownik zarejestrowany pomyślnie");
         setRegistrationSuccess(true); // Ustawienie stanu na sukces po pomyślnej rejestracji
+        toast.success("Użytkownik zarejestrowany pomyślnie");
+        setFormData({
+          // name: "",
+          // surname: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        });
       } else {
-        console.error("Błąd podczas rejestracji");
+        const passwordRegex =
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+        if (!passwordRegex.test(formData.password)) {
+          console.error(
+            "Hasło musi zawierać co najmniej jedną dużą literę, jedną małą literę, jedną cyfrę i jeden znak specjalny."
+          );
+          toast.error(
+            "Hasło musi zawierać co najmniej jedną dużą literę, jedną małą literę, jedną cyfrę i jeden znak specjalny."
+          );
+          return;
+        }
       }
     } catch (error) {
       console.error("Błąd połączenia z serwerem:", error);
+      toast.error("Błąd połączenia z serwerem:" + error.message);
     }
   };
 
@@ -83,14 +107,15 @@ const RegistrationForm = () => {
 
   return (
     <div className="container">
-      {registrationSuccess && ( // Wyświetlanie komunikatu po udanej rejestracji
+      <ToastContainer />
+      {/* {registrationSuccess && ( // Wyświetlanie komunikatu po udanej rejestracji
         <div className="notification is-success">
           Użytkownik został zarejestrowany pomyślnie.
           <a href="/confirm-email"> Przejdz weryfikacji emila</a>
         </div>
-      )}
+      )} */}
       <form onSubmit={handleSubmit}>
-        <div className="field">
+        {/* <div className="field">
           <label className="label">Name</label>
           <div className="control">
             <input
@@ -116,7 +141,7 @@ const RegistrationForm = () => {
               required
             />
           </div>
-        </div>
+        </div> */}
 
         <div className="field">
           <label className="label">Email</label>

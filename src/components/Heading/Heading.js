@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "bulma/css/bulma.min.css";
+import beachBagIcon from "./beach-bag_7703453.png";
 
 const Heading = ({ isUserLoggedIn, onLogout }) => {
   return (
@@ -19,12 +20,17 @@ const Heading = ({ isUserLoggedIn, onLogout }) => {
           <a href="/products" className="navbar-item">
             Produkty
           </a>
-          <a href="/basket" className="navbar-item">
-            Koszyk
-          </a>
         </div>
 
         <div className="navbar-end">
+          <a href="/basket" className="navbar-item">
+            <img
+              src={beachBagIcon}
+              alt="Torba plażowa"
+              title="Ikona autorstwa Freepik"
+              style={{ width: "32px", height: "auto" }}
+            />
+          </a>
           {!isUserLoggedIn ? (
             <div className="navbar-item">
               <div className="buttons">
@@ -46,7 +52,10 @@ const Heading = ({ isUserLoggedIn, onLogout }) => {
                 <a className="navbar-item" href="/user">
                   Profil
                 </a>
-                <a className="navbar-item" href="#">
+                <a className="navbar-item" href="/user/orders">
+                  Zamowienia
+                </a>
+                <a className="navbar-item" href="/user/set">
                   Ustawienia
                 </a>
                 <hr className="navbar-divider" />

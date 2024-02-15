@@ -3,6 +3,8 @@ import "bulma/css/bulma.min.css";
 import "./login_form.css";
 import UserPage from "./UserPage";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LoginForm = ({ onLogin }) => {
   const [loginData, setLoginData] = useState({
@@ -38,7 +40,7 @@ const LoginForm = ({ onLogin }) => {
         // Zapisz dane użytkownika do localStorage
         localStorage.setItem("userData", JSON.stringify(userData));
         //przekerowanie po pomyslnym logowaniu na strone uzytkownika
-        navigate(`/userPage`);
+        navigate(`/`);
         // Ustaw stan zalogowania w komponencie App
         onLogin(userData);
         setError(null);
@@ -48,6 +50,7 @@ const LoginForm = ({ onLogin }) => {
         setError("Błędne dane logowania. Spróbuj ponownie.");
         setUserData(null);
         console.error("Błąd podczas logowania");
+        toast.error("Błędne dane logowania. Spróbuj ponownie.");
       }
     } catch (error) {
       // Ustaw błąd w stanie komponentu
@@ -56,6 +59,9 @@ const LoginForm = ({ onLogin }) => {
       );
       setUserData(null);
       console.error("Błąd połączenia z serwerem:", error);
+      toast.error(
+        "Wystąpił błąd połączenia z serwerem. Spróbuj ponownie później."
+      );
     }
   };
   const handleLogin = () => {
@@ -64,6 +70,7 @@ const LoginForm = ({ onLogin }) => {
 
   return (
     <div className="container">
+      <ToastContainer />
       {userData ? (
         <UserPage userData={userData} />
       ) : (
@@ -81,7 +88,6 @@ const LoginForm = ({ onLogin }) => {
               />
             </div>
           </div>
-
           <div className="field">
             <label className="label">Password</label>
             <div className="control">
@@ -95,7 +101,6 @@ const LoginForm = ({ onLogin }) => {
               />
             </div>
           </div>
-
           <div className="field">
             <div className="control">
               <button
@@ -105,21 +110,15 @@ const LoginForm = ({ onLogin }) => {
               >
                 Log in
               </button>
-            </div>
-          </div>
-
-          {error && (
-            <div className="notification is-danger">
-              {error}
               <a href="/confirm-email"> Lub przejdz weryfikacji emila</a>
             </div>
-          )}
-
+          </div>
+          {/* {error && <div className="notification is-danger">{error}</div>}
           {userData && (
             <div className="notification is-success">
               Zalogowano pomyślnie jako {userData.name} {userData.surname}.
             </div>
-          )}
+          )} */}
         </form>
       )}
     </div>

@@ -1,22 +1,23 @@
+// AccountSettingsPage.js
 import React, { useState } from "react";
 
 const AccountSettingsPage = () => {
   // Stan dla ustawień konta
   const [settings, setSettings] = useState({
-    changePassword: false, // Flaga informująca, czy użytkownik chce zmienić hasło
-    notifications: true, // Flaga informująca, czy użytkownik chce otrzymywać powiadomienia
-    // Dodaj więcej ustawień według potrzeb
+    changePassword: false,
+    notifications: true,
   });
 
   // Funkcje obsługujące zmianę ustawień konta
 
   return (
-    <div>
-      <h2>Ustawienia konta</h2>
-      <label>
+    <div className="box">
+      <h2 className="title is-4">Ustawienia konta</h2>
+      <div className="field">
         <input
+          id="changePassword"
           type="checkbox"
-          name="changePassword"
+          className="switch is-rounded is-info"
           checked={settings.changePassword}
           onChange={() =>
             setSettings((prevSettings) => ({
@@ -25,12 +26,13 @@ const AccountSettingsPage = () => {
             }))
           }
         />
-        Zmień hasło
-      </label>
-      <label>
+        <label htmlFor="changePassword">Zmień hasło</label>
+      </div>
+      <div className="field">
         <input
+          id="notifications"
           type="checkbox"
-          name="notifications"
+          className="switch is-rounded is-info"
           checked={settings.notifications}
           onChange={() =>
             setSettings((prevSettings) => ({
@@ -39,8 +41,8 @@ const AccountSettingsPage = () => {
             }))
           }
         />
-        Otrzymuj powiadomienia
-      </label>
+        <label htmlFor="notifications">Otrzymuj powiadomienia</label>
+      </div>
       {/* Dodaj więcej opcji ustawień konta */}
     </div>
   );

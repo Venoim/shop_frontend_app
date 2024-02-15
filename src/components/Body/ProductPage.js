@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProductPage = ({ userData }) => {
   const [product, setProduct] = useState(null);
@@ -20,6 +22,7 @@ const ProductPage = ({ userData }) => {
 
         if (!response.ok) {
           throw new Error("Błąd podczas pobierania danych produktu");
+          toast.error("Błąd podczas pobierania danych produktu");
         }
 
         const data = await response.json();
@@ -29,6 +32,7 @@ const ProductPage = ({ userData }) => {
           setError(null);
         } else {
           throw new Error("Brak danych produktu");
+          toast.error("Brak danych produktu");
         }
       } catch (error) {
         console.error(
@@ -36,6 +40,7 @@ const ProductPage = ({ userData }) => {
           error.message
         );
         setError("Błąd podczas pobierania danych produktu");
+        toast.error("Błąd podczas pobierania danych produktu:", error.message);
       }
     };
 
@@ -45,14 +50,16 @@ const ProductPage = ({ userData }) => {
   const handleAddToCart = async () => {
     try {
       await axios.post("http://localhost:3001/api/basket/add", {
-        userId: userData.user[0].id, // ID aktualnego użytkownika
+        userId: userData.userData.id, // ID aktualnego użytkownika
         productId: product.id, // ID produktu
         quantity: 1, //  ilość produktu
       });
-      alert("Produkt dodany do koszyka!");
+      // alert("Produkt dodany do koszyka!");
+      toast.success("Produkt dodany do koszyka!");
     } catch (error) {
       console.error("Error adding product to cart:", error);
-      alert("Wystąpił błąd podczas dodawania produktu do koszyka.");
+      // alert("Wystąpił błąd podczas dodawania produktu do koszyka.");
+      toast.error("Wystąpił błąd podczas dodawania produktu do koszyka.");
     }
   };
 
@@ -62,15 +69,20 @@ const ProductPage = ({ userData }) => {
 
   return (
     <div className="container">
+      <ToastContainer />
       <div className="columns">
         <div className="column is-half">
           <p>ID: {product.id}</p>
           <h1 className="title">{product.name}</h1>
-          <p>Opis: {product.description}</p>
-          <p>Cena: {product.price} zł</p>
-          <button className="button is-primary" onClick={handleAddToCart}>
-            Dodaj do koszyka
-          </button>
+          <div className="box">
+            <p>Opis: {product.description}</p>
+          </div>
+          <div>
+            <p className="prince">Cena: {product.price} zł</p>
+            <button className="button is-primary" onClick={handleAddToCart}>
+              Dodaj do koszyka
+            </button>
+          </div>
         </div>
         {/* Wyświetl obrazek tylko jeśli jest dostępny */}
         {product.imgUrl && (

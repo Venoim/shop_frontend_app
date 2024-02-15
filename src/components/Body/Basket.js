@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./BasketStyle.scss";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Basket = ({ userData }) => {
   const [basketItems, setBasketItems] = useState([]);
 
-  const userId = userData?.user[0]?.id;
+  const userId = userData?.userData?.id;
   console.log(userId);
   useEffect(() => {
     // Pobierz zawartość koszyka dla danego użytkownika po załadowaniu komponentu
@@ -17,6 +19,7 @@ const Basket = ({ userData }) => {
         setBasketItems(response.data);
       } catch (error) {
         console.error("Error fetching basket items:", error);
+        // toast.error("Error fetching basket items:", error);
       }
     };
 
@@ -38,6 +41,7 @@ const Basket = ({ userData }) => {
       setBasketItems(updatedBasketItems);
     } catch (error) {
       console.error("Error updating quantity:", error);
+      toast.error("Error updating quantity:", error);
     }
   };
 
@@ -50,8 +54,10 @@ const Basket = ({ userData }) => {
       );
       setBasketItems(updatedBasketItems);
       fetchBasketItems();
+      toast.info("usunieto produkt z koszyka");
     } catch (error) {
       console.error("Error removing item:", error);
+      toast.error("Error removing item:", error);
     }
   };
   const fetchBasketItems = async () => {
@@ -62,6 +68,7 @@ const Basket = ({ userData }) => {
       setBasketItems(response.data);
     } catch (error) {
       console.error("Error fetching basket items:", error);
+      toast.error("Error fetching basket items:", error);
     }
   };
 
@@ -71,6 +78,7 @@ const Basket = ({ userData }) => {
 
   return (
     <div className="section">
+      <ToastContainer />
       <div className="container">
         <h2 className="title">Twój koszyk</h2>
         {basketItems.length === 0 ? (
@@ -135,7 +143,7 @@ const Basket = ({ userData }) => {
                 <td> {totalCost.toFixed(2)} zł</td>
                 <td></td>
                 <td>
-                  <button className="button is-small">Kup</button>
+                  <button className="button is-success">Kup</button>
                 </td>
               </tr>
             </tfoot>
