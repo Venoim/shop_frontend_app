@@ -143,7 +143,7 @@ const Basket = ({ userData }) => {
                 <td> {totalCost.toFixed(2)} zł</td>
                 <td></td>
                 <td>
-                  <button className="button is-small">Kup</button>
+                  <button className="button is-success">Kup</button>
                 </td>
               </tr>
             </tfoot>
