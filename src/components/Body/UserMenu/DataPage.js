@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 
-const DataPage = ({ userData }) => {
+const DataPage = ({ currentUserData, onSave }) => {
   // Załóżmy, że masz stan dla danych użytkownika
+  const user = currentUserData.userData;
+  console.log(user);
   const [userData, setUserData] = useState({
-    firstName: "Jan",
-    lastName: "Kowalski",
-    email: "jan.kowalski@example.com",
-    address: "ul. Testowa 123, 00-000 Test",
-    phoneNumber: "123-456-789",
+    name: currentUserData.userData.name,
+    surname: currentUserData.userData.surname,
+    email: currentUserData.userData.email,
+    address: currentUserData.userData.address,
+    phoneNumber: currentUserData.userData.phoneNumber,
   });
 
   // Funkcja do obsługi zmiany danych użytkownika
@@ -19,7 +21,9 @@ const DataPage = ({ userData }) => {
     }));
   };
 
-  // Funkcja do zapisu zmienionych danych na serwerze
+  const handleSave = () => {
+    onSave(userData);
+  };
 
   return (
     <div className="box">
@@ -33,7 +37,7 @@ const DataPage = ({ userData }) => {
               className="input"
               type="text"
               name="firstName"
-              value={userData.firstName}
+              value={userData.name}
               onChange={handleInputChange}
             />
           </div>
@@ -45,12 +49,12 @@ const DataPage = ({ userData }) => {
               className="input"
               type="text"
               name="lastName"
-              value={userData.lastName}
+              value={userData.surname}
               onChange={handleInputChange}
             />
           </div>
         </div>
-        {/* <div className="field">
+        <div className="field">
           <label className="label">email:</label>
           <input
             className="input"
@@ -59,7 +63,7 @@ const DataPage = ({ userData }) => {
             value={userData.email}
             onChange={handleInputChange}
           />
-        </div> */}
+        </div>
         <div className="field">
           <label className="label">Adres:</label>
           <input

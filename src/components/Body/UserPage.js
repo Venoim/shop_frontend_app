@@ -27,7 +27,10 @@ const UserPage = ({ userData, onLogout }) => {
         </div>
         <Routes>
           <Route path="/orders" element={<OrdersPage />} />
-          <Route path="/data" element={<DataPage userData={userData} />} />
+          <Route
+            path="/data"
+            element={<DataPage currentUserData={userData} />}
+          />
           <Route path="/set" element={<AccountSettingsPage />} />
         </Routes>
       </div>
