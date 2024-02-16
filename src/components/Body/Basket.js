@@ -76,6 +76,27 @@ const Basket = ({ userData }) => {
     return total + item.price * item.quantity;
   }, 0);
 
+  const handleCheckout = async (userId) => {
+    try {
+      // Wywołaj odpowiedni endpoint na serwerze
+      const response = await axios.post(
+        `http://localhost:3001/api/orders/checkout`,
+        { user_id: userId }
+      );
+
+      // Wyświetl komunikat o sukcesie
+      toast.success("Zamówienie zostało złożone pomyślnie!");
+
+      // Tutaj możesz wykonać dodatkowe akcje, np. odświeżenie koszyka, przekierowanie użytkownika itp.
+    } catch (error) {
+      // Obsłuż błędy
+      console.error("Error during checkout:", error);
+      toast.success(
+        "Wystąpił błąd podczas składania zamówienia. Spróbuj ponownie później."
+      );
+    }
+  };
+
   return (
     <div className="section">
       <ToastContainer />
@@ -143,7 +164,12 @@ const Basket = ({ userData }) => {
                 <td> {totalCost.toFixed(2)} zł</td>
                 <td></td>
                 <td>
-                  <button className="button is-success">Kup</button>
+                  <button
+                    className="button is-success"
+                    onClick={() => handleCheckout(userId)}
+                  >
+                    Kup
+                  </button>
                 </td>
               </tr>
             </tfoot>
