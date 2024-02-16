@@ -70,7 +70,7 @@ const LoginForm = ({ onLogin }) => {
 
   return (
     <div className="container">
-      <ToastContainer />
+      <ToastContainer position="bottom-right" />
       {userData ? (
         <UserPage userData={userData} />
       ) : (
@@ -84,6 +84,7 @@ const LoginForm = ({ onLogin }) => {
                 name="email"
                 value={loginData.email}
                 onChange={handleChange}
+                autoComplete="email"
                 required
               />
             </div>
@@ -97,6 +98,7 @@ const LoginForm = ({ onLogin }) => {
                 name="password"
                 value={loginData.password}
                 onChange={handleChange}
+                autoComplete="current-password"
                 required
               />
             </div>

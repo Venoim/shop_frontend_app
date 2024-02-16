@@ -107,7 +107,7 @@ const RegistrationForm = () => {
 
   return (
     <div className="container">
-      <ToastContainer />
+      <ToastContainer position="bottom-right" />
       {/* {registrationSuccess && ( // Wyświetlanie komunikatu po udanej rejestracji
         <div className="notification is-success">
           Użytkownik został zarejestrowany pomyślnie.

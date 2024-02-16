@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom"; // Dodaj import
 
 const OrdersPage = ({ currentUserData }) => {
   const userId = currentUserData.userData.id;
@@ -9,7 +8,6 @@ const OrdersPage = ({ currentUserData }) => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        // Pobierz listę zamówień użytkownika z serwera po user_id
         const response = await axios.get(
           `http://localhost:3001/api/orders/${userId}`
         );
@@ -20,7 +18,7 @@ const OrdersPage = ({ currentUserData }) => {
     };
 
     fetchOrders();
-  }, [userId]); // Dodaj userId jako zależność
+  }, [userId]);
 
   // Funkcja do grupowania zamówień według order_id
   const groupOrdersByOrderId = (orders) => {
@@ -51,6 +49,13 @@ const OrdersPage = ({ currentUserData }) => {
     return date.toLocaleString("pl-PL", options);
   };
 
+  // Przekonwertuj obiekt groupedOrders na tablicę i posortuj wg daty zamówienia (od najnowszych do najstarszych)
+  const sortedGroupedOrders = Object.entries(groupedOrders).sort((a, b) => {
+    const dateA = new Date(a[1][0].order_date);
+    const dateB = new Date(b[1][0].order_date);
+    return dateB - dateA;
+  });
+
   return (
     <div className="box">
       <h2 className="title is-4">Twoje zamówienia</h2>
@@ -64,8 +69,8 @@ const OrdersPage = ({ currentUserData }) => {
           </tr>
         </thead>
         <tbody>
-          {Object.entries(groupedOrders).map(([orderId, orderItems]) => (
-            <tr>
+          {sortedGroupedOrders.map(([orderId, orderItems]) => (
+            <tr key={orderId}>
               <td>{orderId}</td>
               <td>{formatDate(orderItems[0].order_date)}</td>
               <td>

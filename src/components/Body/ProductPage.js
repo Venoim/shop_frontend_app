@@ -69,7 +69,7 @@ const ProductPage = ({ userData }) => {
 
   return (
     <div className="container">
-      <ToastContainer />
+      <ToastContainer position="bottom-right" />
       <div className="columns">
         <div className="column is-half">
           <p>ID: {product.id}</p>

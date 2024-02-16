@@ -29,7 +29,7 @@ const EmailVerificationForm = () => {
 
   return (
     <div className="container">
-      <ToastContainer />
+      <ToastContainer position="bottom-right" />
       <form onSubmit={handleSubmit}>
         <div className="field">
           <label className="label">Adres e-mail</label>

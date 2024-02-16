@@ -12,6 +12,7 @@ const Basket = ({ userData }) => {
   useEffect(() => {
     // Pobierz zawartość koszyka dla danego użytkownika po załadowaniu komponentu
     const fetchBasketItems = async () => {
+      if (!userId) return;
       try {
         const response = await axios.get(
           `http://localhost:3001/api/basket/${userId}`
@@ -99,7 +100,7 @@ const Basket = ({ userData }) => {
 
   return (
     <div className="section">
-      <ToastContainer />
+      <ToastContainer position="bottom-right" />
       <div className="container">
         <h2 className="title">Twój koszyk</h2>
         {basketItems.length === 0 ? (
