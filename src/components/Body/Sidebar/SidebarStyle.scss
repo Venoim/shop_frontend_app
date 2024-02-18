@@ -1,19 +1,44 @@
 .sidebar {
-  background-color: #f4f4f4; /* Zmiana koloru tła Sidebaru */
+  background-color: #f5f5f5;
   padding: 20px;
+  border-right: 1px solid #ddd;
+  min-height: 100vh; /* Ustawiamy wysokość na 100% wysokości widoku */
+}
+
+.title.is-4.has-text-primary {
+  margin-bottom: 10px;
 }
 
 .sidebar-divider {
-  border-top: 1px solid #ddd; /* Dodanie cienkiej linii oddzielającej */
-  border-right: 1px solid #ddd;
-  margin: 10px 0; /* Dodanie odstępu dla estetyki */
+  margin: 20px 0;
+  border: 0;
+  border-top: 1px solid #ddd;
+}
+
+.menu-list li {
+  cursor: pointer;
+}
+
+.menu-list li:hover {
+  background-color: #eaeaea;
 }
 
 .menu-list li.selected {
-  background-color: #ddd; /* Kolor podświetlenia dla elementu listy */
+  background-color: #007bff;
 }
 
-.menu-list li a.selected-link {
-  color: rgb(0, 0, 0); /* Kolor linku po wybraniu kategorii */
-  font-weight: bold; /* Pogrubienie tekstu linku po wybraniu kategorii */
+.menu-list li.selected a {
+  color: #fff;
+}
+
+.menu-list li.selected:hover {
+  background-color: #0056b3;
+}
+
+.menu-list li.selected:hover a {
+  color: #fff;
+}
+
+.select {
+  margin-top: 10px;
 }

@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./BasketStyle.scss";
+import { DNA } from "react-loader-spinner";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "./BasketStyle.scss";
 
 const Basket = ({ userData }) => {
   const [basketItems, setBasketItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); // Dodajemy nowy stan isLoading
 
   const userId = userData?.userData?.id;
-  console.log(userId);
+
   useEffect(() => {
     // Pobierz zawartość koszyka dla danego użytkownika po załadowaniu komponentu
     const fetchBasketItems = async () => {
@@ -18,9 +20,10 @@ const Basket = ({ userData }) => {
           `http://localhost:3001/api/basket/${userId}`
         );
         setBasketItems(response.data);
+        setIsLoading(false); // Ustawiamy isLoading na false, gdy dane zostały pobrane
       } catch (error) {
         console.error("Error fetching basket items:", error);
-        // toast.error("Error fetching basket items:", error);
+        toast.error("Error fetching basket items:", error);
       }
     };
 
@@ -102,26 +105,38 @@ const Basket = ({ userData }) => {
     <div className="section">
       <ToastContainer position="bottom-right" />
       <div className="container">
-        <h2 className="title">Twój koszyk</h2>
-        {basketItems.length === 0 ? (
+        <h2 className="title is-2">Twój koszyk</h2>
+        {isLoading ? (
+          <div className="loader-container">
+            <DNA
+              visible={true}
+              height={80}
+              width={80}
+              ariaLabel="Loading"
+              type="ThreeDots"
+              color="#007bff"
+            />
+          </div>
+        ) : basketItems.length === 0 ? (
           <p>Koszyk jest pusty.</p>
         ) : (
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Nazwa produktu</th>
-                <th>Cena</th>
-                <th>Ilość</th>
-                <th>Akcje</th>
-              </tr>
-            </thead>
-            <tbody>
-              {basketItems.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.name}</td>
-                  <td>{item.price}</td>
-                  <td className="quantity">
-                    {/* <button
+          <div className="box">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Nazwa produktu</th>
+                  <th>Cena</th>
+                  <th>Ilość</th>
+                  <th>Akcje</th>
+                </tr>
+              </thead>
+              <tbody>
+                {basketItems.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.name}</td>
+                    <td>{item.price}</td>
+                    <td className="quantity">
+                      {/* <button
                       className="button is-small"
                       onClick={() =>
                         handleQuantityChange(item.id, item.quantity - 1)
@@ -130,16 +145,19 @@ const Basket = ({ userData }) => {
                     >
                       -
                     </button> */}
-                    <input
-                      type="number"
-                      className="input is-small quantity"
-                      value={item.quantity}
-                      onChange={(e) =>
-                        handleQuantityChange(item.id, parseInt(e.target.value))
-                      }
-                      min="1"
-                    />
-                    {/* <button
+                      <input
+                        type="number"
+                        className="input is-small quantity"
+                        value={item.quantity}
+                        onChange={(e) =>
+                          handleQuantityChange(
+                            item.id,
+                            parseInt(e.target.value)
+                          )
+                        }
+                        min="1"
+                      />
+                      {/* <button
                       className="button is-small"
                       onClick={() =>
                         handleQuantityChange(item.id, item.quantity + 1)
@@ -147,38 +165,38 @@ const Basket = ({ userData }) => {
                     >
                       +
                     </button> */}
-                  </td>
+                    </td>
+                    <td>
+                      <button
+                        className="button is-danger is-small"
+                        onClick={() => handleRemoveItem(item.id)}
+                      >
+                        Usuń
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+              <tfoot className="total-cost">
+                <tr>
+                  <td>Suma:</td>
+                  <td> {totalCost.toFixed(2)} zł</td>
+                  <td></td>
                   <td>
                     <button
-                      className="button is-danger is-small"
-                      onClick={() => handleRemoveItem(item.id)}
+                      className="button is-success"
+                      onClick={() => handleCheckout(userId)}
                     >
-                      Usuń
+                      Kup
                     </button>
                   </td>
                 </tr>
-              ))}
-            </tbody>
-            <tfoot className="total-cost">
-              <tr>
-                <td>Suma:</td>
-                <td> {totalCost.toFixed(2)} zł</td>
-                <td></td>
-                <td>
-                  <button
-                    className="button is-success"
-                    onClick={() => handleCheckout(userId)}
-                  >
-                    Kup
-                  </button>
-                </td>
-              </tr>
-            </tfoot>
-          </table>
+              </tfoot>
+            </table>
+          </div>
         )}
       </div>
     </div>
   );
 };
-
 export default Basket;

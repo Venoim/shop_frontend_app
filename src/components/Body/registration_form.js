@@ -106,7 +106,7 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container registerBox">
       <ToastContainer position="bottom-right" />
       {/* {registrationSuccess && ( // Wyświetlanie komunikatu po udanej rejestracji
         <div className="notification is-success">
@@ -114,35 +114,7 @@ const RegistrationForm = () => {
           <a href="/confirm-email"> Przejdz weryfikacji emila</a>
         </div>
       )} */}
-      <form onSubmit={handleSubmit}>
-        {/* <div className="field">
-          <label className="label">Name</label>
-          <div className="control">
-            <input
-              className="input"
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-        </div>
-
-        <div className="field">
-          <label className="label">Surname</label>
-          <div className="control">
-            <input
-              className="input"
-              type="text"
-              name="surname"
-              value={formData.surname}
-              onChange={handleChange}
-              required
-            />
-          </div>
-        </div> */}
-
+      <form className="box" onSubmit={handleSubmit}>
         <div className="field">
           <label className="label">Email</label>
           <div className="control">
@@ -202,6 +174,15 @@ const RegistrationForm = () => {
           </div>
         </div>
       </form>
+      {registrationSuccess && ( // Wyświetlanie komunikatu po udanej rejestracji
+        <div className="notification is-success">
+          Użytkownik został zarejestrowany pomyślnie.
+          <br />
+          <button className="button is-link" href="/confirm-email">
+            Przejdz weryfikacji emila
+          </button>
+        </div>
+      )}
     </div>
   );
 };

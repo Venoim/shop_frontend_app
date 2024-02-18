@@ -1,6 +1,18 @@
-.quantity {
-  display: flex;
+.box {
+  margin-bottom: 20px; /* Odstęp od tytułu */
 }
-.quantity {
-  width: 5rem;
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px; /* Dowolna wysokość, aby umieścić loader na środku ekranu */
+}
+
+.basket-info {
+  margin-bottom: 10px;
+}
+
+.checkout-btn-container {
+  margin-top: 20px;
 }

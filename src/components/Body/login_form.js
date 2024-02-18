@@ -74,7 +74,7 @@ const LoginForm = ({ onLogin }) => {
       {userData ? (
         <UserPage userData={userData} />
       ) : (
-        <form onSubmit={handleSubmit}>
+        <form className="box loginBox" onSubmit={handleSubmit}>
           <div className="field">
             <label className="label">Email</label>
             <div className="control">

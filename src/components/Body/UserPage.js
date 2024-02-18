@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import OrdersPage from "./UserMenu/OrdersPage.js";
 import DataPage from "./UserMenu/DataPage.js";
 import AccountSettingsPage from "./UserMenu/AccountSettingsPage.js";
-import "bulma/css/bulma.min.css"; // Importujemy styl Bulma
+import "bulma/css/bulma.min.css";
+import "./UserPageStyle.scss";
 
 const UserPage = ({ userData, onLogout }) => {
   if (!userData) {
@@ -19,7 +20,7 @@ const UserPage = ({ userData, onLogout }) => {
         <UserSidebar onLogout={onLogout} />
       </div>
       <div className="container">
-        <div className="content">
+        <div className="content page">
           <h2 className="title">Profil użytkownika</h2>
           <p>
             <strong>ID:</strong> {id} <strong>Email:</strong> {email}

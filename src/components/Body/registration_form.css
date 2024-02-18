@@ -1,7 +1,17 @@
-.container {
-  margin-top: 3rem;
+.registerBox {
+  margin-top: 10rem;
+  display: flex;
 }
 
 .field {
   width: 400px;
+}
+.notification {
+  margin-left: 5rem;
+  height: 10rem;
+  width: 100rem;
+  text-align: center;
+}
+.notification button {
+  margin-top: 1rem;
 }
