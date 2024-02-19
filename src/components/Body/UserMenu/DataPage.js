@@ -1,23 +1,37 @@
 import React, { useState, useEffect } from "react";
 
-const DataPage = ({ currentUserData, onSave }) => {
-  const [userData, setUserData] = useState(
-    JSON.parse(localStorage.getItem("userData"))
-  );
-  console.log(userData.userData.id);
-  // Funkcja do obsługi zmiany danych użytkownika
+const DataPage = () => {
+  const [userData, setUserData] = useState({});
+  const [isDataChanged, setIsDataChanged] = useState(false);
+
+  useEffect(() => {
+    loadUserData();
+  }, []);
+
+  const loadUserData = () => {
+    const userDataFromStorage =
+      JSON.parse(localStorage.getItem("userData")) ?? {};
+    setUserData(userDataFromStorage.userData || {});
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setUserData((prevData) => ({
-      ...prevData,
+    setUserData((prevUserData) => ({
+      ...prevUserData,
       [name]: value,
     }));
+    setIsDataChanged(true);
   };
 
   const handleSave = async () => {
+    if (!isDataChanged) {
+      console.log("Brak zmian do zapisania.");
+      return;
+    }
+
     try {
       const response = await fetch(
-        `http://localhost:3001/api/users/${userData.userData.id}`,
+        `http://localhost:3001/api/users/${userData.id}`,
         {
           method: "PUT",
           headers: {
@@ -26,10 +40,11 @@ const DataPage = ({ currentUserData, onSave }) => {
           body: JSON.stringify(userData),
         }
       );
+
       if (response.ok) {
         console.log("Dane użytkownika zostały zaktualizowane.");
-        // Aktualizacja danych w localStorage
-        localStorage.setItem("userData", JSON.stringify(userData));
+        localStorage.setItem("userData", JSON.stringify({ userData }));
+        setIsDataChanged(false);
       } else {
         console.error("Wystąpił błąd podczas aktualizacji danych użytkownika.");
       }
@@ -54,7 +69,7 @@ const DataPage = ({ currentUserData, onSave }) => {
               className="input"
               type="text"
               name="name"
-              value={userData.name}
+              value={userData.name || ""}
               onChange={handleInputChange}
             />
           </div>
@@ -66,7 +81,7 @@ const DataPage = ({ currentUserData, onSave }) => {
               className="input"
               type="text"
               name="surname"
-              value={userData.surname}
+              value={userData.surname || ""}
               onChange={handleInputChange}
             />
           </div>
@@ -77,7 +92,7 @@ const DataPage = ({ currentUserData, onSave }) => {
             className="input"
             type="text"
             name="address"
-            value={userData.address}
+            value={userData.address || ""}
             onChange={handleInputChange}
           />
         </div>
@@ -87,7 +102,7 @@ const DataPage = ({ currentUserData, onSave }) => {
             className="input"
             type="tel"
             name="phoneNumber"
-            value={userData.phoneNumber}
+            value={userData.phoneNumber || ""}
             onChange={handleInputChange}
           />
         </div>
