@@ -115,12 +115,6 @@ const LoginForm = ({ onLogin }) => {
               <a href="/confirm-email"> Lub przejdz weryfikacji emila</a>
             </div>
           </div>
-          {/* {error && <div className="notification is-danger">{error}</div>}
-          {userData && (
-            <div className="notification is-success">
-              Zalogowano pomyślnie jako {userData.name} {userData.surname}.
-            </div>
-          )} */}
         </form>
       )}
     </div>

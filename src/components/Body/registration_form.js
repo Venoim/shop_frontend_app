@@ -8,8 +8,6 @@ const urlSerwer = "http://localhost:3001/api/users/register";
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
-    // name: "",
-    // surname: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -178,9 +176,9 @@ const RegistrationForm = () => {
         <div className="notification is-success">
           Użytkownik został zarejestrowany pomyślnie.
           <br />
-          <button className="button is-link" href="/confirm-email">
+          <a className="button is-link" href="/confirm-email">
             Przejdz weryfikacji emila
-          </button>
+          </a>
         </div>
       )}
     </div>
