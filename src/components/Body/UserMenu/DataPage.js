@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from "react";
 
 const DataPage = ({ currentUserData, onSave }) => {
-  const user = currentUserData.userData;
-  console.log(user);
-  const [userData, setUserData] = useState({
-    name: user.name || "", // Jeśli user.name jest null lub undefined, ustaw pusty ciąg znaków
-    surname: user.surname || "",
-    email: user.email || "",
-    address: user.address || "",
-    phoneNumber: user.phoneNumber || "",
-  });
-
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem("userData"))
+  );
+  console.log(userData.userData.id);
   // Funkcja do obsługi zmiany danych użytkownika
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -23,7 +17,7 @@ const DataPage = ({ currentUserData, onSave }) => {
   const handleSave = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3001/api/users/${user.id}`,
+        `http://localhost:3001/api/users/${userData.userData.id}`,
         {
           method: "PUT",
           headers: {
@@ -32,9 +26,10 @@ const DataPage = ({ currentUserData, onSave }) => {
           body: JSON.stringify(userData),
         }
       );
-      // Obsługa odpowiedzi serwera, np. wyświetlenie komunikatu o sukcesie lub błędzie
       if (response.ok) {
         console.log("Dane użytkownika zostały zaktualizowane.");
+        // Aktualizacja danych w localStorage
+        localStorage.setItem("userData", JSON.stringify(userData));
       } else {
         console.error("Wystąpił błąd podczas aktualizacji danych użytkownika.");
       }
@@ -44,14 +39,13 @@ const DataPage = ({ currentUserData, onSave }) => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Zapobiegamy domyślnej akcji przesyłania formularza
-    handleSave(); // Wywołujemy funkcję handleSave
+    e.preventDefault();
+    handleSave();
   };
 
   return (
     <div className="box">
       <h2 className="title is-4">Twoje dane</h2>
-      {/* Formularz edycji danych */}
       <form onSubmit={handleSubmit}>
         <div className="field">
           <label className="label">Imię:</label>
@@ -76,16 +70,6 @@ const DataPage = ({ currentUserData, onSave }) => {
               onChange={handleInputChange}
             />
           </div>
-        </div>
-        <div className="field">
-          <label className="label">email:</label>
-          <input
-            className="input"
-            type="email"
-            name="email"
-            value={userData.email}
-            onChange={handleInputChange}
-          />
         </div>
         <div className="field">
           <label className="label">Adres:</label>
