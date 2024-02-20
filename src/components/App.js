@@ -14,10 +14,9 @@ import Footer from "./Footer/Footer.js";
 
 const App = () => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-  const [userData, setUserData] = useState(null); // Dodajemy stan dla danych użytkownika
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    // Sprawdź, czy istnieją dane zalogowanego użytkownika w localStorage
     const storedUserData = localStorage.getItem("userData");
     if (storedUserData) {
       const parsedUserData = JSON.parse(storedUserData);
@@ -34,7 +33,6 @@ const App = () => {
   const handleLogout = () => {
     setIsUserLoggedIn(false);
     setUserData(null);
-    // Usuń dane zalogowanego użytkownika z localStorage po wylogowaniu
     localStorage.removeItem("userData");
   };
 
@@ -63,7 +61,6 @@ const App = () => {
             <Route path="/basket" element={<Basket userData={userData} />} />
           </Routes>
         </div>
-        {/* <Footer /> */}
       </div>
     </Router>
   );

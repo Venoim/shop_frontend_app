@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./ProductPageStyle.scss";
 import { DNA } from "react-loader-spinner";
+import _ from "lodash";
 
 const ProductPage = ({ userData }) => {
   const [product, setProduct] = useState(null);
@@ -48,19 +49,24 @@ const ProductPage = ({ userData }) => {
     fetchProduct();
   }, [id]);
 
-  const handleAddToCart = async () => {
+  const handleAddToCart = _.debounce(async () => {
     try {
+      if (!userData.userData) {
+        toast.error("Musisz być zalogowany, aby dodać produkt do koszyka.");
+        return;
+      }
+
+      toast.success("Produkt dodany do koszyka!");
       await axios.post("http://localhost:3001/api/basket/add", {
         userId: userData.userData.id,
         productId: product.id,
         quantity: 1,
       });
-      toast.success("Produkt dodany do koszyka!");
     } catch (error) {
       console.error("Error adding product to cart:", error);
       toast.error("Wystąpił błąd podczas dodawania produktu do koszyka.");
     }
-  };
+  }, 1000);
 
   return (
     <div className="container ">

@@ -7,12 +7,11 @@ import "./BasketStyle.scss";
 
 const Basket = ({ userData }) => {
   const [basketItems, setBasketItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); // Dodajemy nowy stan isLoading
+  const [isLoading, setIsLoading] = useState(true);
 
   const userId = userData?.userData?.id;
 
   useEffect(() => {
-    // Pobierz zawartość koszyka dla danego użytkownika po załadowaniu komponentu
     const fetchBasketItems = async () => {
       if (!userId) return;
       try {
@@ -20,7 +19,7 @@ const Basket = ({ userData }) => {
           `http://localhost:3001/api/basket/${userId}`
         );
         setBasketItems(response.data);
-        setIsLoading(false); // Ustawiamy isLoading na false, gdy dane zostały pobrane
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching basket items:", error);
         toast.error("Error fetching basket items:", error);
@@ -35,6 +34,7 @@ const Basket = ({ userData }) => {
       await axios.put(`http://localhost:3001/api/basket/update/${itemId}`, {
         quantity: newQuantity,
       });
+
       // Zaktualizuj stan koszyka po zmianie ilości
       const updatedBasketItems = basketItems.map((item) => {
         if (item.id === itemId) {
@@ -51,6 +51,7 @@ const Basket = ({ userData }) => {
 
   const handleRemoveItem = async (itemId) => {
     try {
+      toast.info("Produkt został usunięty z koszyka");
       await axios.delete(`http://localhost:3001/api/basket/remove/${itemId}`);
       // Usuń produkt z koszyka na podstawie jego ID
       const updatedBasketItems = basketItems.filter(
@@ -58,7 +59,6 @@ const Basket = ({ userData }) => {
       );
       setBasketItems(updatedBasketItems);
       fetchBasketItems();
-      toast.info("usunieto produkt z koszyka");
     } catch (error) {
       console.error("Error removing item:", error);
       toast.error("Error removing item:", error);
@@ -75,27 +75,21 @@ const Basket = ({ userData }) => {
       toast.error("Error fetching basket items:", error);
     }
   };
-
   const totalCost = basketItems.reduce((total, item) => {
     return total + item.price * item.quantity;
   }, 0);
 
   const handleCheckout = async (userId) => {
     try {
-      // Wywołaj odpowiedni endpoint na serwerze
       const response = await axios.post(
         `http://localhost:3001/api/orders/checkout`,
         { user_id: userId }
       );
 
-      // Wyświetl komunikat o sukcesie
       toast.success("Zamówienie zostało złożone pomyślnie!");
-
-      // Tutaj możesz wykonać dodatkowe akcje, np. odświeżenie koszyka, przekierowanie użytkownika itp.
     } catch (error) {
-      // Obsłuż błędy
       console.error("Error during checkout:", error);
-      toast.success(
+      toast.error(
         "Wystąpił błąd podczas składania zamówienia. Spróbuj ponownie później."
       );
     }
@@ -136,15 +130,6 @@ const Basket = ({ userData }) => {
                     <td>{item.name}</td>
                     <td>{item.price}</td>
                     <td className="quantity">
-                      {/* <button
-                      className="button is-small"
-                      onClick={() =>
-                        handleQuantityChange(item.id, item.quantity - 1)
-                      }
-                      disabled={item.quantity <= 1}
-                    >
-                      -
-                    </button> */}
                       <input
                         type="number"
                         className="input is-small quantity"
@@ -157,14 +142,6 @@ const Basket = ({ userData }) => {
                         }
                         min="1"
                       />
-                      {/* <button
-                      className="button is-small"
-                      onClick={() =>
-                        handleQuantityChange(item.id, item.quantity + 1)
-                      }
-                    >
-                      +
-                    </button> */}
                     </td>
                     <td>
                       <button
@@ -199,4 +176,5 @@ const Basket = ({ userData }) => {
     </div>
   );
 };
+
 export default Basket;
