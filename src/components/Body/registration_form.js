@@ -176,7 +176,7 @@ const RegistrationForm = () => {
         <div className="notification is-success">
           Użytkownik został zarejestrowany pomyślnie.
           <br />
-          <a className="button is-link" href="/confirm-email">
+          <a className="verification button is-link" href="/confirm-email">
             Przejdz weryfikacji emila
           </a>
         </div>

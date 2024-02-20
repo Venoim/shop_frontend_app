@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { DNA } from "react-loader-spinner";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,6 +9,7 @@ import "./BasketStyle.scss";
 const Basket = ({ userData }) => {
   const [basketItems, setBasketItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   const userId = userData?.userData?.id;
 
@@ -87,6 +89,7 @@ const Basket = ({ userData }) => {
       );
 
       toast.success("Zamówienie zostało złożone pomyślnie!");
+      navigate(`/user/orders`);
     } catch (error) {
       console.error("Error during checkout:", error);
       toast.error(
