@@ -10,7 +10,7 @@ import ProductPage from "./Body/ProductPage.js";
 import Basket from "./Body/Basket.js";
 import UserPage from "./Body/UserPage.js";
 import "./Root.css";
-import Footer from "./Footer/Footer.js";
+import Footer from "./layout/footer/Footer.js";
 
 const App = () => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
