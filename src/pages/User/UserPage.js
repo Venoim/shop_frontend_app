@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import UserSidebar from "../../components/Sidebar/UserSidebar.js";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import OrdersPage from "../../pages/User/UserMenu/OrdersPage.js";
-import DataPage from "../../pages/User/UserMenu/DataPage.js";
+import OrdersPage from "./Orders/OrdersPage.js";
+import DataPage from "./Data/DataPage.js";
 // import AccountSettingsPage from "./UserMenu/AccountSettingsPage.js";
 import "bulma/css/bulma.min.css";
 import "./UserPageStyle.scss";
