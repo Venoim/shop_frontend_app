@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import CommonLayout from "../../components/layout/CommonLayout.js";
 import { useNavigate } from "react-router-dom";
 import { DNA } from "react-loader-spinner";
 import { ToastContainer, toast } from "react-toastify";
@@ -99,84 +100,86 @@ const Basket = ({ userData }) => {
   };
 
   return (
-    <div className="section">
-      <ToastContainer position="bottom-right" />
-      <div className="container">
-        <h2 className="title is-2">Twój koszyk</h2>
-        {isLoading ? (
-          <div className="loader-container">
-            <DNA
-              visible={true}
-              height={80}
-              width={80}
-              ariaLabel="Loading"
-              type="ThreeDots"
-              color="#007bff"
-            />
-          </div>
-        ) : basketItems.length === 0 ? (
-          <p>Koszyk jest pusty.</p>
-        ) : (
-          <div className="box">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Nazwa produktu</th>
-                  <th>Cena</th>
-                  <th>Ilość</th>
-                  <th>Akcje</th>
-                </tr>
-              </thead>
-              <tbody>
-                {basketItems.map((item) => (
-                  <tr key={item.id}>
-                    <td>{item.name}</td>
-                    <td>{item.price}</td>
-                    <td className="quantity">
-                      <input
-                        type="number"
-                        className="input is-small quantity"
-                        value={item.quantity}
-                        onChange={(e) =>
-                          handleQuantityChange(
-                            item.id,
-                            parseInt(e.target.value)
-                          )
-                        }
-                        min="1"
-                      />
-                    </td>
+    <CommonLayout header={null} footer={null}>
+      <div className="section">
+        <ToastContainer position="bottom-right" />
+        <div className="container">
+          <h2 className="title is-2">Twój koszyk</h2>
+          {isLoading ? (
+            <div className="loader-container">
+              <DNA
+                visible={true}
+                height={80}
+                width={80}
+                ariaLabel="Loading"
+                type="ThreeDots"
+                color="#007bff"
+              />
+            </div>
+          ) : basketItems.length === 0 ? (
+            <p>Koszyk jest pusty.</p>
+          ) : (
+            <div className="box">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Nazwa produktu</th>
+                    <th>Cena</th>
+                    <th>Ilość</th>
+                    <th>Akcje</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {basketItems.map((item) => (
+                    <tr key={item.id}>
+                      <td>{item.name}</td>
+                      <td>{item.price}</td>
+                      <td className="quantity">
+                        <input
+                          type="number"
+                          className="input is-small quantity"
+                          value={item.quantity}
+                          onChange={(e) =>
+                            handleQuantityChange(
+                              item.id,
+                              parseInt(e.target.value)
+                            )
+                          }
+                          min="1"
+                        />
+                      </td>
+                      <td>
+                        <button
+                          className="button is-danger is-small"
+                          onClick={() => handleRemoveItem(item.id)}
+                        >
+                          Usuń
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+                <tfoot className="total-cost">
+                  <tr>
+                    <td>Suma:</td>
+                    <td> {totalCost.toFixed(2)} zł</td>
+                    <td></td>
                     <td>
                       <button
-                        className="button is-danger is-small"
-                        onClick={() => handleRemoveItem(item.id)}
+                        className="button is-success"
+                        onClick={() => handleCheckout(userId)}
                       >
-                        Usuń
+                        Kup
                       </button>
                     </td>
                   </tr>
-                ))}
-              </tbody>
-              <tfoot className="total-cost">
-                <tr>
-                  <td>Suma:</td>
-                  <td> {totalCost.toFixed(2)} zł</td>
-                  <td></td>
-                  <td>
-                    <button
-                      className="button is-success"
-                      onClick={() => handleCheckout(userId)}
-                    >
-                      Kup
-                    </button>
-                  </td>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
-        )}
+                </tfoot>
+              </table>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </CommonLayout>
   );
 };
 

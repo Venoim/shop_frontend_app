@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import CommonLayout from "../../components/layout/CommonLayout.js";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
@@ -69,47 +70,49 @@ const ProductPage = ({ userData }) => {
   }, 1000);
 
   return (
-    <div className="container ">
-      {isLoading ? (
-        <div className="loader-container">
-          <DNA
-            visible={true}
-            height={80}
-            width={80}
-            ariaLabel="Loading"
-            type="ThreeDots"
-            color="#007bff"
-          />
-        </div>
-      ) : (
-        <div className="columns productPage">
-          <ToastContainer position="bottom-right" />
-          <div className="column is-half">
-            <p>ID: {product && product.id}</p>
-            <h1 className="title">{product && product.name}</h1>
-            <div className="box">
-              <p>Opis: {product && product.description}</p>
-            </div>
-            <div>
-              <p className="price">Cena: {product && product.price} zł</p>
-              <button
-                className="basket button is-primary"
-                onClick={handleAddToCart}
-              >
-                Dodaj do koszyka
-              </button>
-            </div>
+    <CommonLayout header={null} footer={null}>
+      <div className="container ">
+        {isLoading ? (
+          <div className="loader-container">
+            <DNA
+              visible={true}
+              height={80}
+              width={80}
+              ariaLabel="Loading"
+              type="ThreeDots"
+              color="#007bff"
+            />
           </div>
-          {product && product.imgUrl && (
+        ) : (
+          <div className="columns productPage">
+            <ToastContainer position="bottom-right" />
             <div className="column is-half">
-              <figure className="image is-4by3">
-                <img src={product.imgUrl} alt={product.name} />
-              </figure>
+              <p>ID: {product && product.id}</p>
+              <h1 className="title">{product && product.name}</h1>
+              <div className="box">
+                <p>Opis: {product && product.description}</p>
+              </div>
+              <div>
+                <p className="price">Cena: {product && product.price} zł</p>
+                <button
+                  className="basket button is-primary"
+                  onClick={handleAddToCart}
+                >
+                  Dodaj do koszyka
+                </button>
+              </div>
             </div>
-          )}
-        </div>
-      )}
-    </div>
+            {product && product.imgUrl && (
+              <div className="column is-half">
+                <figure className="image is-4by3">
+                  <img src={product.imgUrl} alt={product.name} />
+                </figure>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </CommonLayout>
   );
 };
 

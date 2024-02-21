@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import CommonLayout from "../../components/layout/CommonLayout.js";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -28,43 +29,45 @@ const EmailVerificationForm = () => {
   };
 
   return (
-    <div className="container">
-      <ToastContainer position="bottom-right" />
-      <form onSubmit={handleSubmit}>
-        <div className="field">
-          <label className="label">Adres e-mail</label>
-          <div className="control">
-            <input
-              className="input"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+    <CommonLayout header={null} footer={null}>
+      <div className="container">
+        <ToastContainer position="bottom-right" />
+        <form onSubmit={handleSubmit}>
+          <div className="field">
+            <label className="label">Adres e-mail</label>
+            <div className="control">
+              <input
+                className="input"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
           </div>
-        </div>
-        <div className="field">
-          <label className="label">Kod weryfikacyjny</label>
-          <div className="control">
-            <input
-              className="input"
-              type="text"
-              value={confirmationCode}
-              onChange={(e) => setConfirmationCode(e.target.value)}
-              required
-            />
+          <div className="field">
+            <label className="label">Kod weryfikacyjny</label>
+            <div className="control">
+              <input
+                className="input"
+                type="text"
+                value={confirmationCode}
+                onChange={(e) => setConfirmationCode(e.target.value)}
+                required
+              />
+            </div>
           </div>
-        </div>
-        {/* {errorMessage && <p className="has-text-danger">{errorMessage}</p>} */}
-        <div className="field">
-          <div className="control">
-            <button className="button is-primary" type="submit">
-              Potwierdź adres e-mail
-            </button>
+          {/* {errorMessage && <p className="has-text-danger">{errorMessage}</p>} */}
+          <div className="field">
+            <div className="control">
+              <button className="button is-primary" type="submit">
+                Potwierdź adres e-mail
+              </button>
+            </div>
           </div>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
+    </CommonLayout>
   );
 };
 

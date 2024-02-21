@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import CommonLayout from "../../components/layout/CommonLayout.js";
 import UserSidebar from "../../components/Sidebar/UserSidebar.js";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import OrdersPage from "./Orders/OrdersPage.js";
 import DataPage from "./Data/DataPage.js";
-// import AccountSettingsPage from "./UserMenu/AccountSettingsPage.js";
+// import AccountSettingsPage from "./Set/AccountSettingsPage.js";
 import "bulma/css/bulma.min.css";
 import "./UserPageStyle.scss";
 
@@ -46,30 +47,32 @@ const UserPage = ({ userData: userState, onLogout }) => {
   const { name, surname, email, id } = userState.userData;
 
   return (
-    <div className="columns">
-      <div className="column is-one-quarter">
-        <UserSidebar onLogout={onLogout} />
-      </div>
-      <div className="container">
-        <div className="content page">
-          <h2 className="title">Profil użytkownika</h2>
-          <p>
-            <strong>ID:</strong> {id} <strong>Email:</strong> {email}
-          </p>
+    <CommonLayout header={null} footer={null}>
+      <div className="columns">
+        <div className="column is-one-quarter">
+          <UserSidebar onLogout={onLogout} />
         </div>
-        <Routes>
-          <Route
-            path="/orders"
-            element={<OrdersPage currentUserData={userState} />}
-          />
-          <Route
-            path="/data"
-            element={<DataPage currentUserData={userState} />}
-          />
-          {/* <Route path="/set" element={<AccountSettingsPage />} /> */}
-        </Routes>
+        <div className="container">
+          <div className="content page">
+            <h2 className="title">Profil użytkownika</h2>
+            <p>
+              <strong>ID:</strong> {id} <strong>Email:</strong> {email}
+            </p>
+          </div>
+          <Routes>
+            <Route
+              path="/orders"
+              element={<OrdersPage currentUserData={userState} />}
+            />
+            <Route
+              path="/data"
+              element={<DataPage currentUserData={userState} />}
+            />
+            {/* <Route path="/set" element={<AccountSettingsPage />} /> */}
+          </Routes>
+        </div>
       </div>
-    </div>
+    </CommonLayout>
   );
 };
 

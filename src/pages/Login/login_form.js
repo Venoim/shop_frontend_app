@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import CommonLayout from "../../components/layout/CommonLayout.js";
 import "bulma/css/bulma.min.css";
 import "./login_form.css";
 import UserPage from "../User/UserPage";
@@ -69,55 +70,57 @@ const LoginForm = ({ onLogin }) => {
   };
 
   return (
-    <div className="container">
-      <ToastContainer position="bottom-right" />
-      {userData ? (
-        <UserPage userData={userData} />
-      ) : (
-        <form className="box loginBox" onSubmit={handleSubmit}>
-          <div className="field">
-            <label className="label">Email</label>
-            <div className="control">
-              <input
-                className="input"
-                type="email"
-                name="email"
-                value={loginData.email}
-                onChange={handleChange}
-                autoComplete="email"
-                required
-              />
+    <CommonLayout header={null} footer={null}>
+      <div className="container">
+        <ToastContainer position="bottom-right" />
+        {userData ? (
+          <UserPage userData={userData} />
+        ) : (
+          <form className="box loginBox" onSubmit={handleSubmit}>
+            <div className="field">
+              <label className="label">Email</label>
+              <div className="control">
+                <input
+                  className="input"
+                  type="email"
+                  name="email"
+                  value={loginData.email}
+                  onChange={handleChange}
+                  autoComplete="email"
+                  required
+                />
+              </div>
             </div>
-          </div>
-          <div className="field">
-            <label className="label">Password</label>
-            <div className="control">
-              <input
-                className="input"
-                type="password"
-                name="password"
-                value={loginData.password}
-                onChange={handleChange}
-                autoComplete="current-password"
-                required
-              />
+            <div className="field">
+              <label className="label">Password</label>
+              <div className="control">
+                <input
+                  className="input"
+                  type="password"
+                  name="password"
+                  value={loginData.password}
+                  onChange={handleChange}
+                  autoComplete="current-password"
+                  required
+                />
+              </div>
             </div>
-          </div>
-          <div className="field">
-            <div className="control">
-              <button
-                onClick={handleLogin}
-                type="submit"
-                className="button is-primary"
-              >
-                Log in
-              </button>
-              <a href="/confirm-email"> Lub przejdz weryfikacji emila</a>
+            <div className="field">
+              <div className="control">
+                <button
+                  onClick={handleLogin}
+                  type="submit"
+                  className="button is-primary"
+                >
+                  Log in
+                </button>
+                <a href="/confirm-email"> Lub przejdz weryfikacji emila</a>
+              </div>
             </div>
-          </div>
-        </form>
-      )}
-    </div>
+          </form>
+        )}
+      </div>
+    </CommonLayout>
   );
 };
 

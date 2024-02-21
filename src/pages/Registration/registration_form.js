@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import CommonLayout from "../../components/layout/CommonLayout.js";
 import "react-toastify/dist/ReactToastify.css";
 import "bulma/css/bulma.min.css";
 import "./registration_form.css";
@@ -104,84 +105,86 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div className="container registerBox">
-      <ToastContainer position="bottom-right" />
-      {/* {registrationSuccess && ( // Wyświetlanie komunikatu po udanej rejestracji
+    <CommonLayout header={null} footer={null}>
+      <div className="container registerBox">
+        <ToastContainer position="bottom-right" />
+        {/* {registrationSuccess && ( // Wyświetlanie komunikatu po udanej rejestracji
         <div className="notification is-success">
           Użytkownik został zarejestrowany pomyślnie.
           <a href="/confirm-email"> Przejdz weryfikacji emila</a>
         </div>
       )} */}
-      <form className="box" onSubmit={handleSubmit}>
-        <div className="field">
-          <label className="label">Email</label>
-          <div className="control">
-            <input
-              className="input"
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
+        <form className="box" onSubmit={handleSubmit}>
+          <div className="field">
+            <label className="label">Email</label>
+            <div className="control">
+              <input
+                className="input"
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
-        </div>
 
-        <div className="field">
-          <label className="label">Password</label>
-          <div className="control">
-            <input
-              className="input"
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
+          <div className="field">
+            <label className="label">Password</label>
+            <div className="control">
+              <input
+                className="input"
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
-        </div>
 
-        <div className="field">
-          <label className="label">Confirm Password</label>
-          <div className="control">
-            <input
-              className="input"
-              type="password"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              required
-            />
+          <div className="field">
+            <label className="label">Confirm Password</label>
+            <div className="control">
+              <input
+                className="input"
+                type="password"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
-        </div>
 
-        <div className="field is-grouped">
-          <div className="control">
-            <button type="submit" className="button is-primary">
-              Register
-            </button>
+          <div className="field is-grouped">
+            <div className="control">
+              <button type="submit" className="button is-primary">
+                Register
+              </button>
+            </div>
+            <div className="control">
+              <button
+                type="button"
+                className="button is-danger"
+                onClick={handleCancel}
+              >
+                Cancel
+              </button>
+            </div>
           </div>
-          <div className="control">
-            <button
-              type="button"
-              className="button is-danger"
-              onClick={handleCancel}
-            >
-              Cancel
-            </button>
+        </form>
+        {registrationSuccess && ( // Wyświetlanie komunikatu po udanej rejestracji
+          <div className="notification is-success">
+            Użytkownik został zarejestrowany pomyślnie.
+            <br />
+            <a className="verification button is-link" href="/confirm-email">
+              Przejdz weryfikacji emila
+            </a>
           </div>
-        </div>
-      </form>
-      {registrationSuccess && ( // Wyświetlanie komunikatu po udanej rejestracji
-        <div className="notification is-success">
-          Użytkownik został zarejestrowany pomyślnie.
-          <br />
-          <a className="verification button is-link" href="/confirm-email">
-            Przejdz weryfikacji emila
-          </a>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </CommonLayout>
   );
 };
 

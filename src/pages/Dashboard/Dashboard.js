@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import CommonLayout from "../../components/layout/CommonLayout.js";
 import Sidebar from "../../components/Sidebar/Sidebar.js";
 import Pagination from "../../components/Pagination/Pagination.js";
 import { useNavigate } from "react-router-dom";
@@ -75,64 +76,66 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="dashboard">
-      <div className="columns">
-        <div className="column is-one-quarter">
-          <Sidebar
-            categories={categories}
-            onSelectCategory={handleCategorySelect}
-            onSelectLimit={handleLimitSelect}
-          />
-        </div>
-        <div className="column">
-          <h2 className="title is-2">Lista Produktów</h2>
-          {isLoading ? ( // Dodajemy warunek dla isLoading
-            <div className="loader-container">
-              <DNA
-                visible={true}
-                height={80}
-                width={80}
-                ariaLabel="Loading"
-                type="ThreeDots"
-                color="#007bff"
-              />
-            </div>
-          ) : (
-            <div className="columns products is-multiline">
-              {products &&
-                products.map((product) => (
-                  <div key={product.id} className="column is-one-third">
-                    <div
-                      className="box"
-                      style={{ cursor: "pointer" }}
-                      onClick={() => handleProductClick(product.id)}
-                    >
-                      <article className="media">
-                        <div className="media-content">
-                          <figure className="image is-4by3">
-                            <img src={product.imgUrl} alt={product.name} />
-                          </figure>
-                          <div className="content">
-                            <p className="title is-4">{product.name}</p>
-                            <p className="subtitle is-6 has-text-weight-bold">
-                              Cena: {product.price} zł
-                            </p>
+    <CommonLayout header={null} footer={null}>
+      <div className="dashboard">
+        <div className="columns">
+          <div className="column is-one-quarter">
+            <Sidebar
+              categories={categories}
+              onSelectCategory={handleCategorySelect}
+              onSelectLimit={handleLimitSelect}
+            />
+          </div>
+          <div className="column">
+            <h2 className="title is-2">Lista Produktów</h2>
+            {isLoading ? ( // Dodajemy warunek dla isLoading
+              <div className="loader-container">
+                <DNA
+                  visible={true}
+                  height={80}
+                  width={80}
+                  ariaLabel="Loading"
+                  type="ThreeDots"
+                  color="#007bff"
+                />
+              </div>
+            ) : (
+              <div className="columns products is-multiline">
+                {products &&
+                  products.map((product) => (
+                    <div key={product.id} className="column is-one-third">
+                      <div
+                        className="box"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => handleProductClick(product.id)}
+                      >
+                        <article className="media">
+                          <div className="media-content">
+                            <figure className="image is-4by3">
+                              <img src={product.imgUrl} alt={product.name} />
+                            </figure>
+                            <div className="content">
+                              <p className="title is-4">{product.name}</p>
+                              <p className="subtitle is-6 has-text-weight-bold">
+                                Cena: {product.price} zł
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                      </article>
+                        </article>
+                      </div>
                     </div>
-                  </div>
-                ))}
-            </div>
-          )}
-          <Pagination
-            currentPage={currentPage}
-            totalPages={Math.ceil(productsCount / parseInt(selectedLimit))}
-            onPageChange={handlePageChange}
-          />
+                  ))}
+              </div>
+            )}
+            <Pagination
+              currentPage={currentPage}
+              totalPages={Math.ceil(productsCount / parseInt(selectedLimit))}
+              onPageChange={handlePageChange}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </CommonLayout>
   );
 };
 

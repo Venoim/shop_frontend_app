@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import CommonLayout from "../components/layout/CommonLayout.js";
 import Home from "./Home/Home.js";
 import Header from "../components/layout/header/Header.js";
 import LoginForm from "./Login/login_form.js";
@@ -12,7 +13,7 @@ import UserPage from "./User/UserPage.js";
 import "./Root.css";
 import Footer from "../components/layout/footer/Footer.js";
 
-const App = () => {
+const Root = () => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [userData, setUserData] = useState(null);
 
@@ -38,32 +39,33 @@ const App = () => {
 
   return (
     <Router>
-      <div>
-        <Header isUserLoggedIn={isUserLoggedIn} onLogout={handleLogout} />
-        <div className="main-content">
-          <Routes>
-            <Route
-              path="/login"
-              element={<LoginForm onLogin={handleLogin} />}
-            />
-            <Route path="/confirm-email" element={<EmailVerificationForm />} />
-            <Route path="/register" element={<RegistrationForm />} />
-            <Route
-              path="/user/*"
-              element={<UserPage userData={userData} onLogout={handleLogout} />}
-            />
-            <Route path="/" element={<Home />} />
-            <Route path="/products" element={<Dashboard />} />
-            <Route
-              path="/product/:id"
-              element={<ProductPage userData={userData} />}
-            />
-            <Route path="/basket" element={<Basket userData={userData} />} />
-          </Routes>
-        </div>
-      </div>
+      <CommonLayout
+        header={
+          isUserLoggedIn ? (
+            <Header isUserLoggedIn={isUserLoggedIn} onLogout={handleLogout} />
+          ) : null
+        }
+        footer={null}
+      >
+        <Routes>
+          <Route path="/login" element={<LoginForm onLogin={handleLogin} />} />
+          <Route path="/confirm-email" element={<EmailVerificationForm />} />
+          <Route path="/register" element={<RegistrationForm />} />
+          <Route
+            path="/user/*"
+            element={<UserPage userData={userData} onLogout={handleLogout} />}
+          />
+          <Route path="/" element={<Home />} />
+          <Route path="/products" element={<Dashboard />} />
+          <Route
+            path="/product/:id"
+            element={<ProductPage userData={userData} />}
+          />
+          <Route path="/basket" element={<Basket userData={userData} />} />
+        </Routes>
+      </CommonLayout>
     </Router>
   );
 };
 
-export default App;
+export default Root;
