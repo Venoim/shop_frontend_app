@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "./Sidebar/Sidebar.js";
-import Pagination from "./Pagination.js";
+import Sidebar from "../../components/Body/Sidebar/Sidebar.js";
+import Pagination from "../../components/Body/Pagination.js";
 import { useNavigate } from "react-router-dom";
 import { DNA } from "react-loader-spinner";
 import "./DashboardStyle.scss";
