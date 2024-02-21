@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "../pages/Home/Home.js";
-import Header from "./layout/header/Header.js";
-import LoginForm from "../pages/Login/login_form.js";
-import Dashboard from "../pages/Dashboard/Dashboard.js";
-import RegistrationForm from "../pages/Registration/registration_form.js";
-import EmailVerificationForm from "./Body/email_verification_form.js";
-import ProductPage from "../pages/Product/ProductPage.js";
-import Basket from "../pages/Basket/Basket.js";
-import UserPage from "./Body/UserPage.js";
+import Home from "./Home/Home.js";
+import Header from "../components/layout/header/Header.js";
+import LoginForm from "./Login/login_form.js";
+import Dashboard from "./Dashboard/Dashboard.js";
+import RegistrationForm from "./Registration/registration_form.js";
+import EmailVerificationForm from "./ConfirmEmail/email_verification_form.js";
+import ProductPage from "./Product/ProductPage.js";
+import Basket from "./Basket/Basket.js";
+import UserPage from "./User/UserPage.js";
 import "./Root.css";
-import Footer from "./layout/footer/Footer.js";
+import Footer from "../components/layout/footer/Footer.js";
 
 const App = () => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
