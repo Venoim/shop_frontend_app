@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./Body/Home.js";
-import Heading from "./Heading/Heading";
-import LoginForm from "./Body/login_form";
+import Heading from "./Heading/Heading.js";
+import LoginForm from "./Body/login_form.js";
 import Dashboard from "./Body/Dashboard.js";
-import RegistrationForm from "./Body/registration_form";
+import RegistrationForm from "./Body/registration_form.js";
 import EmailVerificationForm from "./Body/email_verification_form.js";
-import ProductPage from "./Body/ProductPage";
+import ProductPage from "./Body/ProductPage.js";
 import Basket from "./Body/Basket.js";
-import UserPage from "./Body/UserPage";
-import "./App.css";
+import UserPage from "./Body/UserPage.js";
+import "./Root.css";
 import Footer from "./Footer/Footer.js";
 
 const App = () => {
