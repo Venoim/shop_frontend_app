@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "bulma/css/bulma.min.css";
 import "./login_form.css";
-import UserPage from "./UserPage";
+import UserPage from "../../components/Body/UserPage";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
