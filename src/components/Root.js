@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./Body/Home.js";
-import Heading from "./Heading/Heading.js";
+// import Heading from "./Heading/Heading.js";
+import Header from "./layout/header/Header.js";
 import LoginForm from "./Body/login_form.js";
 import Dashboard from "./Body/Dashboard.js";
 import RegistrationForm from "./Body/registration_form.js";
@@ -39,7 +40,7 @@ const App = () => {
   return (
     <Router>
       <div>
-        <Heading isUserLoggedIn={isUserLoggedIn} onLogout={handleLogout} />
+        <Header isUserLoggedIn={isUserLoggedIn} onLogout={handleLogout} />
         <div className="main-content">
           <Routes>
             <Route
