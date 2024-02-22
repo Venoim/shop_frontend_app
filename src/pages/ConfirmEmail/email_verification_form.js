@@ -30,7 +30,7 @@ const EmailVerificationForm = () => {
 
   return (
     <CommonLayout header={null} footer={null}>
-      <div className="container">
+      <div className="container box" style={{ marginTop: "3rem" }}>
         <ToastContainer position="bottom-right" />
         <form onSubmit={handleSubmit}>
           <div className="field">
