@@ -12,9 +12,6 @@ import Basket from "./Basket/Basket.js";
 import UserPage from "./User/UserPage.js";
 import "./Root.css";
 import Footer from "../components/layout/footer/Footer.js";
-import LogRocket from "logrocket";
-
-LogRocket.init("sgkwmc/as-example-react-shop");
 
 const Root = () => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);

@@ -4,6 +4,12 @@ import "./index.css";
 import Root from "./pages/Root.js";
 // import "./styles.css";
 import reportWebVitals from "./reportWebVitals";
+import LogRocket from "logrocket";
+import setupLogRocketReact from "logrocket-react";
+
+LogRocket.init("sgkwmc/as-example-react-shop");
+
+setupLogRocketReact(LogRocket);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
