@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Select from "./Select";
-import { DNA } from "react-loader-spinner";
 import "bulma/css/bulma.min.css";
-import "./SidebarStyle.scss"; // Zaimportuj plik ze stylami
+import "./SidebarStyle.scss";
 
 const Sidebar = ({ categories, onSelectCategory, onSelectLimit }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [isLoading, setIsLoading] = useState(true); // Dodajemy nowy stan isLoading
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Ustawiamy isLoading na false, gdy kategorie zostaną załadowane
     if (categories.length > 0) {
       setIsLoading(false);
     }
@@ -24,22 +22,6 @@ const Sidebar = ({ categories, onSelectCategory, onSelectLimit }) => {
     <div className="sidebar">
       <h2 className="title is-4 has-text-primary">Wybierz Kategorię</h2>
       <hr className="sidebar-divider" />
-      {/* <div
-        className="loader-container"
-        style={{ display: isLoading ? "flex" : "none" }}
-      >
-        {" "}
-        {/* Używamy flex, aby umieścić loader na środku */}
-      {/* <DNA
-          visible={true}
-          height={40}
-          width={40}
-          ariaLabel="Loading"
-          type="ThreeDots"
-          color="#007bff"
-        />
-      </div> */}{" "}
-      {/* // {!isLoading && ( */}
       <ul className="menu-list">
         {categories.map((category) => (
           <li

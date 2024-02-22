@@ -67,7 +67,7 @@ const ProductPage = ({ userData }) => {
       console.error("Error adding product to cart:", error);
       toast.error("Wystąpił błąd podczas dodawania produktu do koszyka.");
     }
-  }, 1000);
+  }, 200);
 
   return (
     <CommonLayout header={null} footer={null}>

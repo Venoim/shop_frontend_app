@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CommonLayout from "../../components/layout/CommonLayout.js";
-import UserSidebar from "../../components/Sidebar/UserSidebar.js";
+import UserSidebar from "../../components/UserSidebar/UserSidebar.js";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import OrdersPage from "./Orders/OrdersPage.js";
 import DataPage from "./Data/DataPage.js";

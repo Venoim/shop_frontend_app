@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { DNA } from "react-loader-spinner";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import _ from "lodash";
 import "./BasketStyle.scss";
 
 const Basket = ({ userData }) => {
@@ -32,54 +33,65 @@ const Basket = ({ userData }) => {
     fetchBasketItems();
   }, [userId]);
 
-  const handleQuantityChange = async (itemId, newQuantity) => {
-    try {
-      await axios.put(`http://localhost:3001/api/basket/update/${itemId}`, {
-        quantity: newQuantity,
-      });
-
-      // Zaktualizuj stan koszyka po zmianie ilości
-      const updatedBasketItems = basketItems.map((item) => {
-        if (item.id === itemId) {
-          return { ...item, quantity: newQuantity };
-        }
-        return item;
-      });
-      setBasketItems(updatedBasketItems);
-    } catch (error) {
-      console.error("Error updating quantity:", error);
-      toast.error("Error updating quantity:", error);
+  useEffect(() => {
+    const storedBasketItems = localStorage.getItem("basketItems");
+    if (storedBasketItems !== null) {
+      setBasketItems(JSON.parse(storedBasketItems));
     }
+  }, []);
+
+  const updateBasketInLocalStorage = (updatedBasketItems) => {
+    localStorage.setItem("basketItems", JSON.stringify(updatedBasketItems));
   };
 
-  const handleRemoveItem = async (itemId) => {
+  const sendUpdatedBasketItemToServer = _.debounce(
+    async (itemId, updatedQuantity) => {
+      try {
+        await axios.put(`http://localhost:3001/api/basket/update/${itemId}`, {
+          quantity: updatedQuantity,
+        });
+      } catch (error) {
+        console.error("Error updating basket item on the server:", error);
+        toast.error("Error updating basket item on the server:", error);
+      }
+    },
+    500
+  );
+
+  const handleQuantityChange = (itemId, newQuantity) => {
+    const updatedBasketItems = basketItems.map((item) => {
+      if (item.id === itemId) {
+        return { ...item, quantity: newQuantity };
+      }
+      return item;
+    });
+    setBasketItems(updatedBasketItems);
+    updateBasketInLocalStorage(updatedBasketItems);
+
+    // Asynchroniczne wysyłanie danych na serwer
+    sendUpdatedBasketItemToServer(itemId, newQuantity);
+  };
+
+  const sendRemoveItemRequestToServer = async (itemId) => {
     try {
-      toast.info("Produkt został usunięty z koszyka");
       await axios.delete(`http://localhost:3001/api/basket/remove/${itemId}`);
-      // Usuń produkt z koszyka na podstawie jego ID
-      const updatedBasketItems = basketItems.filter(
-        (item) => item.cart_id !== itemId
-      );
-      setBasketItems(updatedBasketItems);
-      fetchBasketItems();
     } catch (error) {
-      console.error("Error removing item:", error);
-      toast.error("Error removing item:", error);
+      console.error("Error removing item on the server:", error);
+      toast.error("Error removing item on the server:", error);
     }
   };
-  const fetchBasketItems = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:3001/api/basket/${userId}`
-      );
-      setBasketItems(response.data);
-    } catch (error) {
-      console.error("Error fetching basket items:", error);
-      toast.error("Error fetching basket items:", error);
-    }
+
+  const handleRemoveItem = (itemId) => {
+    const updatedBasketItems = basketItems.filter((item) => item.id !== itemId);
+    setBasketItems(updatedBasketItems);
+    updateBasketInLocalStorage(updatedBasketItems);
+
+    // Asynchroniczne wysyłanie danych na serwer
+    sendRemoveItemRequestToServer(itemId);
   };
+
   const totalCost = basketItems.reduce((total, item) => {
-    return total + item.price * item.quantity;
+    return total + parseFloat(item.price) * item.quantity;
   }, 0);
 
   const handleCheckout = async (userId) => {
@@ -96,6 +108,22 @@ const Basket = ({ userData }) => {
       toast.error(
         "Wystąpił błąd podczas składania zamówienia. Spróbuj ponownie później."
       );
+    }
+  };
+
+  const handleIncrementQuantity = (itemId) => {
+    handleQuantityChange(
+      itemId,
+      basketItems.find((item) => item.id === itemId).quantity + 1
+    );
+  };
+
+  const handleDecrementQuantity = (itemId) => {
+    const currentQuantity = basketItems.find(
+      (item) => item.id === itemId
+    ).quantity;
+    if (currentQuantity > 1) {
+      handleQuantityChange(itemId, currentQuantity - 1);
     }
   };
 
@@ -125,7 +153,7 @@ const Basket = ({ userData }) => {
                   <tr>
                     <th>Nazwa produktu</th>
                     <th>Cena</th>
-                    <th>Ilość</th>
+                    <th className="how">Ilość</th>
                     <th>Akcje</th>
                   </tr>
                 </thead>
@@ -135,8 +163,14 @@ const Basket = ({ userData }) => {
                       <td>{item.name}</td>
                       <td>{item.price}</td>
                       <td className="quantity">
+                        <button
+                          className="button is-small"
+                          onClick={() => handleDecrementQuantity(item.id)}
+                        >
+                          -
+                        </button>
                         <input
-                          type="number"
+                          type="text"
                           className="input is-small quantity"
                           value={item.quantity}
                           onChange={(e) =>
@@ -147,6 +181,12 @@ const Basket = ({ userData }) => {
                           }
                           min="1"
                         />
+                        <button
+                          className="button is-small"
+                          onClick={() => handleIncrementQuantity(item.id)}
+                        >
+                          +
+                        </button>
                       </td>
                       <td>
                         <button
