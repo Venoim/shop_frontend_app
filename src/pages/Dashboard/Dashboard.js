@@ -127,6 +127,7 @@ const Dashboard = () => {
             </div>
           )}
           <Pagination
+            className="pagination"
             currentPage={currentPage}
             totalPages={Math.ceil(productsCount / parseInt(selectedLimit))}
             onPageChange={handlePageChange}

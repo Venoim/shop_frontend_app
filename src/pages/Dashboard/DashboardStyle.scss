@@ -9,4 +9,14 @@
 }
 .dashboard {
   margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+.pagination {
+  background-color: #f5f5f5;
+  padding: 0.5rem;
+  position: fixed;
+  bottom: 0rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
 }
