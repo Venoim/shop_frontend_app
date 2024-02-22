@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import Root from "./pages/Root";
+import Root from "./pages/Root.js";
 // import "./styles.css";
 import reportWebVitals from "./reportWebVitals";
 
