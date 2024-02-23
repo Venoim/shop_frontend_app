@@ -39,7 +39,6 @@ const Sidebar = ({ categories, onSelectCategory, onSelectLimit }) => {
           </li>
         ))}
       </ul>
-      {/* )} */}
       <h2 className="title is-4 has-text-primary">Wybierz Liczbę Produktów</h2>
       <Select
         options={["10", "50", "100"]}
