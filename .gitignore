@@ -38,4 +38,5 @@ tsconfig.json
 tsconfig.*.json
 
 *.js
+*.jsx
 *.js.map
