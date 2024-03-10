@@ -34,9 +34,6 @@ yarn-error.log*
 *.bak
 *.log
 
-tsconfig.json 
-tsconfig.*.json
-
 *.js
 *.jsx
 *.js.map
