@@ -23,7 +23,6 @@ const Home: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        console.log("Pobieram dane");
         const response = await fetch("http://localhost:3001/api/products", {
           method: "GET",
         });
