@@ -1,41 +1,37 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import "bulma/css/bulma.min.css";
-import "../ProductsSidebar/SidebarStyle.scss"; // Wykorzystujemy style z SidebarStyle.scss
+import "../ProductsSidebar/SidebarStyle.scss";
 
 interface UserSidebarProps {
   onLogout: () => void;
 }
 
 const UserSidebar: React.FC<UserSidebarProps> = ({ onLogout }) => {
-  const location = useLocation(); // Pobieramy aktualną ścieżkę URL
+  const location = useLocation(); // We get the current URL path
 
   return (
     <aside className="menu sidebar">
       {" "}
-      {/* Dodajemy klasę sidebar */}
-      <p className="menu-label">Twoje konto</p>
+      <p className="menu-label">Your account</p>
       <ul className="menu-list">
         <li className={location.pathname === "/user/orders" ? "selected" : ""}>
           {" "}
-          {/* Sprawdzamy, czy aktualna ścieżka jest "/user/orders" */}
-          <Link to="/user/orders">Twoje zamówienia</Link>
+          <Link to="/user/orders">Your orders</Link>
         </li>
         <li className={location.pathname === "/user/data" ? "selected" : ""}>
           {" "}
-          {/* Sprawdzamy, czy aktualna ścieżka jest "/user/data" */}
-          <Link to="/user/data">Twoje dane</Link>
+          <Link to="/user/data">Your data</Link>
         </li>
         <li className={location.pathname === "/user/set" ? "selected" : ""}>
           {" "}
-          {/* Sprawdzamy, czy aktualna ścieżka jest "/user/set" */}
-          <Link to="/user/set">Ustawienia konta</Link>
+          <Link to="/user/set">Account settings</Link>
         </li>
       </ul>
-      <p className="menu-label">Operacje</p>
+      <p className="menu-label">Operations</p>
       <ul className="menu-list">
         <li>
-          <a onClick={onLogout}>Wyloguj</a>
+          <a onClick={onLogout}>Log out</a>
         </li>
       </ul>
     </aside>

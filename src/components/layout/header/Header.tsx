@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "bulma/css/bulma.min.css";
 import beachBagIcon from "../../../images/icons/beach-bag_7703453.png";
-// const beachBagIcon = "../../../images/icons/beach-bag_7703453.png";
 
 interface HeaderProps {
   isUserLoggedIn: boolean;
@@ -17,14 +16,14 @@ const Header: React.FC<HeaderProps> = ({ isUserLoggedIn, onLogout }) => {
     >
       <div className="navbar-brand">
         <a className="navbar-item" href="/">
-          Sklep React
+          React Store
         </a>
       </div>
 
       <div id="navbarBasicExample" className="navbar-menu">
         <div className="navbar-start">
           <a href="/products" className="navbar-item">
-            Produkty
+            Products
           </a>
         </div>
 
@@ -41,32 +40,32 @@ const Header: React.FC<HeaderProps> = ({ isUserLoggedIn, onLogout }) => {
             <div className="navbar-item">
               <div className="buttons">
                 <a href="/login" className="button is-primary">
-                  <strong>Zaloguj się</strong>
+                  <strong>Log in</strong>
                 </a>
                 <a href="/register" className="button is-light">
-                  Rejestracja
+                  Registration
                 </a>
               </div>
             </div>
           ) : (
             <div className="navbar-item has-dropdown is-hoverable">
               <a className="navbar-link" href="/user">
-                Twoje konto
+                Your account
               </a>
 
               <div className="navbar-dropdown">
                 <a className="navbar-item" href="/user">
-                  Profil
+                  Profile
                 </a>
                 <a className="navbar-item" href="/user/orders">
-                  Zamowienia
+                  Orders
                 </a>
                 <a className="navbar-item" href="/user/set">
-                  Ustawienia
+                  Settings
                 </a>
                 <hr className="navbar-divider" />
                 <a className="navbar-item" href="#" onClick={onLogout}>
-                  Wyloguj się
+                  log out
                 </a>
               </div>
             </div>

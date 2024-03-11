@@ -124,7 +124,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
                 >
                   Log in
                 </button>
-                <a href="/confirm-email"> Lub przejdz weryfikacji emila</a>
+                <a className="emailVerification" href="/confirm-email">
+                  {" "}
+                  Or go to email verification
+                </a>
               </div>
             </div>
           </form>

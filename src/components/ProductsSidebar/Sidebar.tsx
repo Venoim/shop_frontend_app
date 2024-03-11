@@ -35,13 +35,13 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <div className="sidebar">
-      <h2 className="title is-4 has-text-primary">Wybierz Kategorię</h2>
+      <h2 className="title is-4 has-text-primary">Select a Category</h2>
       <hr className="sidebar-divider" />
       <ul className="menu-list">
         <li
           key={0}
           className={selectedCategory === null ? "selected" : ""}
-          onClick={() => handleCategoryClick(null)} // Obsługa kliknięcia na "Wszystkie produkty", ustawienie wartości null
+          onClick={() => handleCategoryClick(null)} // Handle clicking on "All Products", setting the value to null
         ></li>
         {categories.map((category) => (
           <li
@@ -59,7 +59,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           </li>
         ))}
       </ul>
-      <h2 className="title is-4 has-text-primary">Wybierz Liczbę Produktów</h2>
+      <h2 className="title is-4 has-text-primary">Select Number of Products</h2>
       <Select
         options={["10", "50", "100"]}
         onSelect={(limit) => {

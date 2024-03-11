@@ -12,7 +12,6 @@ setupLogRocketReact(LogRocket);
 
 const handleWebVitals = (metric: any) => {
   console.log(metric.name, metric.value);
-  // tutaj możesz wykonać dodatkowe operacje na metryce wydajności
 };
 
 ReactDOM.render(

@@ -14,17 +14,15 @@ const EmailVerificationForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
+      const RESPONSE = await axios.post(
         "http://localhost:3001/api/users/confirm-email",
         { email, confirmationCode }
       );
-      console.log(response.data); // Zalogowanie odpowiedzi z serwera po potwierdzeniu e-maila
-      toast.success("Potwierdzanie adresu e-mail zakończone sukcesem");
+      console.log(RESPONSE.data); // Logging the response from the server after email confirmation
+      toast.success("Email address confirmed successfully");
       navigate(`/login`);
     } catch (error) {
-      // console.error("Błąd podczas potwierdzania adresu e-mail:", error);
-      // setErrorMessage("Błąd podczas potwierdzania adresu e-mail");
-      toast.error("Błąd podczas potwierdzania adresu e-mail");
+      toast.error("Error confirming email address");
     }
   };
 
@@ -34,7 +32,7 @@ const EmailVerificationForm: React.FC = () => {
         <ToastContainer position="bottom-right" />
         <form onSubmit={handleSubmit}>
           <div className="field">
-            <label className="label">Adres e-mail</label>
+            <label className="label">E-mail adress</label>
             <div className="control">
               <input
                 className="input"
@@ -46,7 +44,7 @@ const EmailVerificationForm: React.FC = () => {
             </div>
           </div>
           <div className="field">
-            <label className="label">Kod weryfikacyjny</label>
+            <label className="label">Verification code</label>
             <div className="control">
               <input
                 className="input"
@@ -61,7 +59,7 @@ const EmailVerificationForm: React.FC = () => {
           <div className="field">
             <div className="control">
               <button className="button is-primary" type="submit">
-                Potwierdź adres e-mail
+                confirm email address
               </button>
             </div>
           </div>

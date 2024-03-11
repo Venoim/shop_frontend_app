@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./HomeStyle.scss";
 import { DNA } from "react-loader-spinner";
 
-// Interfejs dla pojedynczego produktu
+// Interface for a single product
 interface Product {
   id: number;
   name: string;
@@ -29,15 +29,14 @@ const Home: React.FC = () => {
         });
 
         if (!response.ok) {
-          throw new Error("Błąd podczas pobierania danych");
+          throw new Error("Error downloading data");
         }
 
         const data = await response.json();
         setProducts(data.data);
-        setError(null); // Wyzeruj błąd w przypadku udanego pobrania danych
+        setError(null); // Reset the error on successful data retrieval
       } catch (error) {
-        // console.error("Błąd podczas pobierania danych:", error.message);
-        setError("Błąd podczas pobierania danych"); // Ustaw błąd jako string
+        setError("Error downloading data");
       } finally {
         setIsLoading(false);
       }
@@ -63,7 +62,7 @@ const Home: React.FC = () => {
   return (
     <CommonLayout header={null} footer={null}>
       <div className="home-container">
-        <h1 className="title is-1 has-text-centered">Strona główna</h1>
+        <h1 className="title is-1 has-text-centered">Home</h1>
         {isLoading ? (
           <div className="has-text-centered">
             <DNA
@@ -95,7 +94,7 @@ const Home: React.FC = () => {
                       <p className="product-description">
                         {product.description}
                       </p>
-                      <p className="product-price">Cena: {product.price} zł</p>
+                      <p className="product-price">Price: {product.price} $</p>
                     </div>
                   </div>
                 ))}

@@ -74,14 +74,14 @@ const OrdersPage: React.FC<OrdersPageProps> = ({ userData }) => {
 
   return (
     <div className="box">
-      <h2 className="title is-4">Twoje zamówienia</h2>
+      <h2 className="title is-4">Your orders</h2>
       <table className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
         <thead>
           <tr>
-            <th>Numer zamówienia</th>
-            <th>Data zamówienia</th>
-            <th>Produkty</th>
-            <th>Suma</th>
+            <th>Order number</th>
+            <th>date of order</th>
+            <th>Products</th>
+            <th>Sum</th>
           </tr>
         </thead>
         <tbody>
@@ -93,7 +93,7 @@ const OrdersPage: React.FC<OrdersPageProps> = ({ userData }) => {
                 <ul>
                   {orderItems.map((item) => (
                     <li key={item.product_id}>
-                      {item.product_name} - {item.quantity} szt.
+                      {item.product_name} - {item.quantity} pcs.
                     </li>
                   ))}
                 </ul>

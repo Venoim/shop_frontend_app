@@ -49,20 +49,17 @@ const RegistrationForm: React.FC = () => {
         const emailExistsResult = await emailExistsResponse.json();
 
         if (emailExistsResult.exists) {
-          console.error("Podany email jest już używany.");
-          toast.error("Podany email jest już używany.");
+          toast.error("iven e-mail is already in use.");
           return; // Przerwij rejestrację, gdy email już istnieje
         }
       } else {
-        console.error("Błąd podczas sprawdzania emaila");
-        toast.error("Błąd podczas sprawdzania emaila");
+        toast.error("Error checking email");
         return;
       }
 
       // Sprawdzenie, czy hasła są takie same
       if (formData.password !== formData.confirmPassword) {
-        console.error("Hasła muszą być takie same.");
-        toast.error("Hasła muszą być takie same.");
+        toast.error("The passwords must be identical.");
         return; // Przerwij rejestrację, gdy hasła są różne
       }
 
@@ -76,9 +73,8 @@ const RegistrationForm: React.FC = () => {
       });
 
       if (registerResponse.ok) {
-        console.log("Użytkownik zarejestrowany pomyślnie");
-        setRegistrationSuccess(true); // Ustawienie stanu na sukces po pomyślnej rejestracji
-        toast.success("Użytkownik zarejestrowany pomyślnie");
+        toast.success("User registered successfully.");
+        setRegistrationSuccess(true); // Setting the status to success after successful registration
         setFormData({
           email: "",
           password: "",
@@ -89,23 +85,23 @@ const RegistrationForm: React.FC = () => {
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
         if (!passwordRegex.test(formData.password)) {
           console.error(
-            "Hasło musi zawierać co najmniej jedną dużą literę, jedną małą literę, jedną cyfrę i jeden znak specjalny."
+            "The password must contain at least one uppercase letter, one lowercase letter, one number and one special character."
           );
           toast.error(
-            "Hasło musi zawierać co najmniej jedną dużą literę, jedną małą literę, jedną cyfrę i jeden znak specjalny."
+            "The password must contain at least one uppercase letter, one lowercase letter, one number and one special character."
           );
           return;
         }
       }
     } catch (error) {
-      console.error("Błąd połączenia z serwerem:", error);
-      toast.error("Błąd połączenia z serwerem:" + error);
+      console.error("Server connection error:", error);
+      toast.error("Server connection error:" + error);
     }
   };
 
   const handleCancel = () => {
-    // Anulowanie Rejestracji
-    console.log("Anulowano rejestrację");
+    // Registration canceled
+    console.log("Registration canceled");
   };
 
   return (
@@ -174,10 +170,10 @@ const RegistrationForm: React.FC = () => {
         </form>
         {registrationSuccess && (
           <div className="notification is-success">
-            Użytkownik został zarejestrowany pomyślnie.
+            The user has been registered successfully.
             <br />
             <a className="verification button is-link" href="/confirm-email">
-              Przejdz weryfikacji emila
+              Go to email verification
             </a>
           </div>
         )}

@@ -47,7 +47,7 @@ const Basket: React.FC<BasketProps> = ({ userData }) => {
 
   const sendUpdatedBasketItemToServer = _.debounce(
     async (userId: number, itemId: number, updatedQuantity: number) => {
-      console.log("przekazywane wartosci", userId, itemId);
+      console.log("passed values", userId, itemId);
       try {
         await axios.put(`http://localhost:3001/api/basket/update/`, {
           userId: userId,
@@ -65,7 +65,7 @@ const Basket: React.FC<BasketProps> = ({ userData }) => {
   const handleQuantityChange = (itemId: number, newQuantity: number) => {
     const updatedBasketItems = basketItems.map((item) => {
       if (item.id === itemId) {
-        // Sprawdzamy identyfikator produktu
+        // We check the product ID
         return { ...item, quantity: newQuantity };
       }
       return item;
@@ -73,7 +73,7 @@ const Basket: React.FC<BasketProps> = ({ userData }) => {
     setBasketItems(updatedBasketItems);
     updateBasketInLocalStorage(updatedBasketItems);
 
-    // Asynchroniczne wysyłanie danych na serwer
+    // Asynchronously sending data to the server
     sendUpdatedBasketItemToServer(userId, itemId, newQuantity);
   };
 
@@ -93,12 +93,12 @@ const Basket: React.FC<BasketProps> = ({ userData }) => {
   };
 
   const handleRemoveItem = (itemId: number) => {
-    toast.info("Produkt został usunięty z koszyka.");
+    toast.info("The product has been removed from the cart.");
     const updatedBasketItems = basketItems.filter((item) => item.id !== itemId);
     setBasketItems(updatedBasketItems);
     updateBasketInLocalStorage(updatedBasketItems);
 
-    // Asynchroniczne wysyłanie danych na serwer, jeśli userId jest zdefiniowany
+    // Asynchronously send data to the server if userId is defined
     if (userId !== undefined) {
       sendRemoveItemRequestToServer(userId, itemId);
     } else {
@@ -117,12 +117,12 @@ const Basket: React.FC<BasketProps> = ({ userData }) => {
         { user_id: userId }
       );
 
-      toast.success("Zamówienie zostało złożone pomyślnie!");
+      toast.success("The order has been placed successfully!");
       navigate(`/user/orders`);
     } catch (error) {
       console.error("Error during checkout:", error);
       toast.error(
-        "Wystąpił błąd podczas składania zamówienia. Spróbuj ponownie później."
+        "An error occurred while placing your order. Please try again later."
       );
     }
   };
@@ -148,7 +148,7 @@ const Basket: React.FC<BasketProps> = ({ userData }) => {
       <div className="section">
         <ToastContainer position="bottom-right" />
         <div className="container">
-          <h2 className="title is-2">Twój koszyk</h2>
+          <h2 className="title is-2">Your basket</h2>
           {isLoading ? (
             <div className="loader-container">
               <DNA
@@ -161,16 +161,16 @@ const Basket: React.FC<BasketProps> = ({ userData }) => {
               />
             </div>
           ) : basketItems.length === 0 ? (
-            <p>Koszyk jest pusty.</p>
+            <p>Basket is empty.</p>
           ) : (
             <div className="box">
               <table className="table">
                 <thead>
                   <tr>
-                    <th>Nazwa produktu</th>
-                    <th>Cena</th>
-                    <th className="how">Ilość</th>
-                    <th>Akcje</th>
+                    <th>Product name</th>
+                    <th>Price</th>
+                    <th className="how">Quantity</th>
+                    <th>Shares</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -209,7 +209,7 @@ const Basket: React.FC<BasketProps> = ({ userData }) => {
                           className="button is-danger is-small"
                           onClick={() => handleRemoveItem(item.id)}
                         >
-                          Usuń
+                          Delete
                         </button>
                       </td>
                     </tr>
@@ -217,15 +217,15 @@ const Basket: React.FC<BasketProps> = ({ userData }) => {
                 </tbody>
                 <tfoot className="total-cost">
                   <tr>
-                    <td>Suma:</td>
-                    <td> {totalCost.toFixed(2)} zł</td>
+                    <td>Sum:</td>
+                    <td> {totalCost.toFixed(2)} $</td>
                     <td></td>
                     <td>
                       <button
                         className="button is-success"
                         onClick={() => handleCheckout(userId ?? 0)}
                       >
-                        Kup
+                        Buy
                       </button>
                     </td>
                   </tr>

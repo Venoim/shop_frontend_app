@@ -75,10 +75,10 @@ const DataPage: React.FC<DataPageProps> = ({ userData }) => {
       <ToastContainer position="bottom-right" />
       {fetchedUserData && (
         <>
-          <h2 className="title is-4">Twoje dane</h2>
+          <h2 className="title is-4">Your data</h2>
           <form onSubmit={handleSubmit}>
             <div className="field">
-              <label className="label">Imię:</label>
+              <label className="label">Name:</label>
               <div className="control">
                 <input
                   className="input"
@@ -90,7 +90,7 @@ const DataPage: React.FC<DataPageProps> = ({ userData }) => {
               </div>
             </div>
             <div className="field">
-              <label className="label">Nazwisko:</label>
+              <label className="label">Last name:</label>
               <div className="control">
                 <input
                   className="input"
@@ -102,7 +102,7 @@ const DataPage: React.FC<DataPageProps> = ({ userData }) => {
               </div>
             </div>
             <div className="field">
-              <label className="label">Adres:</label>
+              <label className="label">Address:</label>
               <input
                 className="input"
                 type="text"
@@ -112,7 +112,7 @@ const DataPage: React.FC<DataPageProps> = ({ userData }) => {
               />
             </div>
             <div className="field">
-              <label className="label">Numer telefonu:</label>
+              <label className="label">Phone number:</label>
               <input
                 className="input"
                 type="tel"
@@ -122,7 +122,7 @@ const DataPage: React.FC<DataPageProps> = ({ userData }) => {
               />
             </div>
             <button className="button is-primary" type="submit">
-              Zapisz zmiany
+              Save
             </button>
           </form>
         </>

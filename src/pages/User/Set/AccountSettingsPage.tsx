@@ -2,17 +2,17 @@
 import React, { useState } from "react";
 
 const AccountSettingsPage = () => {
-  // Stan dla ustawień konta
+  // Status for account settings
   const [settings, setSettings] = useState({
     changePassword: false,
     notifications: true,
   });
 
-  // Funkcje obsługujące zmianę ustawień konta
+  // Functions that support changing account settings
 
   return (
     <div className="box">
-      <h2 className="title is-4">Ustawienia konta</h2>
+      <h2 className="title is-4">Account settings</h2>
       <div className="field">
         <input
           id="changePassword"
@@ -26,7 +26,7 @@ const AccountSettingsPage = () => {
             }))
           }
         />
-        <label htmlFor="changePassword">Zmień hasło</label>
+        <label htmlFor="changePassword">Change Password</label>
       </div>
       <div className="field">
         <input
@@ -41,9 +41,8 @@ const AccountSettingsPage = () => {
             }))
           }
         />
-        <label htmlFor="notifications">Otrzymuj powiadomienia</label>
+        <label htmlFor="notifications">Receive notifications</label>
       </div>
-      {/* Dodaj więcej opcji ustawień konta */}
     </div>
   );
 };

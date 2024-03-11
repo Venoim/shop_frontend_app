@@ -21,15 +21,10 @@ const UserPage: React.FC<UserPageProps> = ({ userData, onLogout }) => {
             const userDataFromServer = await response.json();
             setFetchedUserData(userDataFromServer);
           } else {
-            console.error(
-              "Wystąpił błąd podczas pobierania danych użytkownika."
-            );
+            console.error("An error occurred while retrieving user data.");
           }
         } catch (error) {
-          console.error(
-            "Wystąpił błąd podczas pobierania danych użytkownika:",
-            error
-          );
+          console.error("An error occurred while retrieving user data:", error);
         }
       }
     };
@@ -38,7 +33,7 @@ const UserPage: React.FC<UserPageProps> = ({ userData, onLogout }) => {
   }, [userData]);
 
   if (!userData) {
-    return <div>Nie jesteś zalogowany</div>;
+    return <div>You're not logged in</div>;
   }
 
   const { name, surname, email, id } = userData;
@@ -51,7 +46,7 @@ const UserPage: React.FC<UserPageProps> = ({ userData, onLogout }) => {
         </div>
         <div className="container">
           <div className="content page">
-            <h2 className="title">Profil użytkownika</h2>
+            <h2 className="title">User profile</h2>
             <p>
               <strong>ID:</strong> {id} <strong>Email:</strong> {email}
             </p>

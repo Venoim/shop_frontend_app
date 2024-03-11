@@ -99,7 +99,7 @@ const Dashboard: React.FC = () => {
           />
         </div>
         <div className="column dashboard">
-          <h2 className="title is-2">Lista Produktów</h2>
+          <h2 className="title is-2">List of products</h2>
           {isLoading ? (
             <div className="loader-container">
               <DNA
@@ -128,7 +128,7 @@ const Dashboard: React.FC = () => {
                         <div className="content">
                           <p className="title is-4">{product.name}</p>
                           <p className="subtitle is-6 has-text-weight-bold">
-                            Cena: {product.price} zł
+                            Price: {product.price} $
                           </p>
                         </div>
                       </div>

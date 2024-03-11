@@ -18,7 +18,7 @@ const ProductPage = ({ userData }: { userData: UserData | null }) => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        console.log("Pobieram dane produktu");
+        console.log("I'm downloading product data");
         const response = await fetch(
           `http://localhost:3001/api/products/${id}`,
           {
@@ -27,7 +27,7 @@ const ProductPage = ({ userData }: { userData: UserData | null }) => {
         );
 
         if (!response.ok) {
-          throw new Error("Błąd podczas pobierania danych produktu");
+          throw new Error("Error retrieving product data");
         }
 
         const data = await response.json();
@@ -35,11 +35,11 @@ const ProductPage = ({ userData }: { userData: UserData | null }) => {
           setProduct(data.result[0]);
           setError(null);
         } else {
-          throw new Error("Brak danych produktu");
+          throw new Error("No product data available");
         }
       } catch (error) {
-        console.error("Błąd podczas pobierania danych produktu:", error);
-        setError("Błąd podczas pobierania danych produktu");
+        console.error("Error retrieving product data:", error);
+        setError("Error retrieving product data");
       } finally {
         setIsLoading(false);
       }
@@ -51,11 +51,11 @@ const ProductPage = ({ userData }: { userData: UserData | null }) => {
   const handleAddToCart = _.debounce(async () => {
     try {
       if (!userData?.userData.id) {
-        toast.error("Musisz być zalogowany, aby dodać produkt do koszyka.");
+        toast.error("You must be logged in to add a product to your cart.");
         return;
       }
 
-      toast.success("Produkt dodany do koszyka!");
+      toast.success("Product added to cart!");
       await axios.post("http://localhost:3001/api/basket/add", {
         userId: userData.userData.id,
         productId: product?.id,
@@ -63,7 +63,7 @@ const ProductPage = ({ userData }: { userData: UserData | null }) => {
       });
     } catch (error) {
       console.error("Error adding product to cart:", error);
-      toast.error("Wystąpił błąd podczas dodawania produktu do koszyka.");
+      toast.error("An error occurred while adding the product to the cart.");
     }
   }, 200);
 
@@ -88,15 +88,15 @@ const ProductPage = ({ userData }: { userData: UserData | null }) => {
               <p>ID: {product?.id}</p>
               <h1 className="title">{product?.name}</h1>
               <div className="box">
-                <p>Opis: {product?.description}</p>
+                <p>Description: {product?.description}</p>
               </div>
               <div>
-                <p className="price">Cena: {product?.price} zł</p>
+                <p className="price">Price: {product?.price} $</p>
                 <button
                   className="basket button is-primary"
                   onClick={handleAddToCart}
                 >
-                  Dodaj do koszyka
+                  Add to cart
                 </button>
               </div>
             </div>
