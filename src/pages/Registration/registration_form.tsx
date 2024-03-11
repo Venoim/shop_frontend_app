@@ -11,7 +11,7 @@ interface FormData {
   confirmPassword: string;
 }
 
-const urlSerwer = "http://localhost:3001/api/users/register";
+const ULR_SERVER = "http://localhost:3001/api/users/register";
 
 const RegistrationForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -33,7 +33,7 @@ const RegistrationForm: React.FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      // Sprawdzenie, czy email istnieje już w bazie
+      // Check if the email already exists in the database
       const emailExistsResponse = await fetch(
         `http://localhost:3001/api/users/check-email`,
         {
@@ -50,21 +50,21 @@ const RegistrationForm: React.FC = () => {
 
         if (emailExistsResult.exists) {
           toast.error("iven e-mail is already in use.");
-          return; // Przerwij rejestrację, gdy email już istnieje
+          return; // Stop registration when email already exists
         }
       } else {
         toast.error("Error checking email");
         return;
       }
 
-      // Sprawdzenie, czy hasła są takie same
+      // Check if the passwords are the same
       if (formData.password !== formData.confirmPassword) {
         toast.error("The passwords must be identical.");
-        return; // Przerwij rejestrację, gdy hasła są różne
+        return; // Stop registration when passwords differ
       }
 
-      // Wysłanie danych do bazy danych
-      const registerResponse = await fetch(urlSerwer, {
+      // Sending data to the database
+      const registerResponse = await fetch(ULR_SERVER, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
